@@ -1,4 +1,4 @@
-# Sistema de Agendamento para Dermatologista
+# Sistema de Agendamento para dermatologista
 
 #### Integrantes
 Nome e RA: Erik Samuel Viana Hsu , 10403109
@@ -26,9 +26,9 @@ O desenvolvimento deste projeto tem um foco extensionista, ou seja, ele foi pens
 ### 4. Tecnologias Utilizadas
 O projeto será desenvolvido utilizando as seguintes tecnologias:
 
-HTML5: Para a estrutura e marcação da página.
+- HTML5: estrutura e marcação da página.
 
-CSS3: Para a estilização e o layout responsivo da interface.
+- CSS3: estilização e o layout responsivo da interface.
 
-JavaScript: Para a funcionalidade dinâmica do sistema, como as interações e a manipulação de dados no lado do cliente.
+- JavaScript: funcionalidade dinâmica do sistema, como as interações e a manipulação de dados no lado do cliente.
 
