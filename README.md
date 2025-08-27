@@ -12,7 +12,7 @@ Nossa solução é um sistema de agendamento online que atende a essa demanda re
 
 Para guiar o desenvolvimento, passamos por um processo de ideação onde definimos as funcionalidades essenciais e, em seguida, criamos um protótipo em Wireframe. O protótipo fez com que pudéssemos visualizar melhor a interface antes da codificação. 
 
-### 2. Protótipo Inicial
+### 2. Protótipo / Wireframe
 
 
 ### 3. Caráter Extensionista
