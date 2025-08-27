@@ -6,7 +6,7 @@ Nome e RA: Erik Samuel Viana Hsu , 10403109
 Nome e RA: Thiago Shihan Cardoso Toma , 10400764
 
 ### 1. Processo de Ideação e Protótipo
-Este projeto nasceu da necessidade de otimizar a organização da agenda de um consultório dermatológico. A dermatologista responsável por esse consultório lida diariamente com a gestão manual de agendamentos, o que pode levar a erros e perda de tempo.
+Este projeto nasceu da necessidade de otimizar a organização da agenda de um consultório dermatológico. A dermatologista responsável por esse consultório lida diariamente com a gestão manual de agendamentos, o que pode levar a erros e confusões.
 
 Nossa solução é um sistema de agendamento online que atende a essa demanda real. O objetivo é criar uma ferramenta simples e eficiente para a gestão de consultas, permitindo à profissional visualizar a agenda de forma clara e gerenciar os horários dos pacientes de maneira mais intuitiva.
 
