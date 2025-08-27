@@ -1,4 +1,4 @@
-# Sistema de Agendamento para dermatologista
+# Sistema de Agendamento para Dermatologista
 
 #### Integrantes
 Nome e RA: Erik Samuel Viana Hsu , 10403109
@@ -14,6 +14,14 @@ Para guiar o desenvolvimento, passamos por um processo de ideação onde definim
 
 ### 2. Protótipo
 
+##### Tela de Agendamentos
+![telaagendamentos](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-08-27%20at%2016.40.55.png?raw=true)
+
+##### Receitas e atestados
+![telareceitaseatestados](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-08-27%20at%2016.41.06.png?raw=true)
+
+##### Detalhes da consulta
+![teladetalhesconsulta](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-08-27%20at%2016.41.17.png?raw=true)
 
 ### 3. Caráter Extensionista
 O desenvolvimento deste projeto tem um foco extensionista, ou seja, ele foi pensado para resolver um problema específico de nossa comunidade — neste caso, a rotina de trabalho de um profissional de saúde em nossa família. Embora o projeto tenha sido inicialmente pensado para auxiliar uma profissional específica, a natureza da solução — um sistema de agendamento — possui uma relevância que pode se extender para além de um único indivíduo (outros profissionais de saúde, pequenos empreendedores e etc.).
