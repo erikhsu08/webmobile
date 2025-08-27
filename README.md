@@ -12,7 +12,7 @@ Nossa solução é um sistema de agendamento online que atende a essa demanda re
 
 Para guiar o desenvolvimento, passamos por um processo de ideação onde definimos as funcionalidades essenciais e, em seguida, criamos um protótipo em Wireframe. O protótipo fez com que pudéssemos visualizar melhor a interface antes da codificação. 
 
-### 2. Protótipo / Wireframe
+### 2. Protótipo
 
 
 ### 3. Caráter Extensionista
@@ -30,5 +30,5 @@ O projeto será desenvolvido utilizando as seguintes tecnologias:
 
 - CSS3: estilização e o layout responsivo da interface.
 
-- JavaScript: funcionalidade dinâmica do sistema, como as interações e a manipulação de dados no lado do cliente.
+- JavaScript: funcionalidade dinâmica do sistema/interações.
 
