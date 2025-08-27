@@ -1,6 +1,6 @@
 # Sistema de Agendamento para Dermatologista
 
-## Integrantes
+#### Integrantes
 Nome e RA: Erik Samuel Viana Hsu , 10403109
 
 Nome e RA: Thiago Shihan Cardoso Toma , 10400764
