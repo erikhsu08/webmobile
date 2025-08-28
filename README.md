@@ -15,16 +15,16 @@ Para guiar o desenvolvimento, passamos por um processo de ideação onde definim
 ### 2. Protótipo
 
 ##### Tela de Agendamentos
-![telaagendamentos](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-08-27%20at%2016.40.55.png?raw=true)
+![telaagendamentos](https://github.com/erikhsu08/webmobile/blob/main/assets/agendamento_web.png?raw=true)
 - Essa é a tela principal do nosso site, nela as consultas já agendadas/horarios disponíoveis podem ser conferidos por meio de um calendário que ocupa a maior parte da tela. Além disso a tela também conta com uma barra que contém informações essenciais como número de consultas agendadas no dia/semana e um menu em formato de sidebar que pode ser usado para acessar as outras páginas da aplicação.
 
 ##### Receitas e atestados
-![telareceitaseatestados](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-08-27%20at%2016.41.06.png?raw=true)
+![telareceitaseatestados](https://github.com/erikhsu08/webmobile/blob/main/assets/receitas_atestados_web.png?raw=true)
 - Esta tela é focada na gestão da documentação do paciente. Nela, o profissional médico pode buscar por um paciente específico para visualizar seu histórico de tratamento. A tela apresenta uma barra lateral com a lista de pacientes e, ao selecionar um, exibe seu histórico de receituários e atestados já criados, com a opção de criar novos documentos de forma prática.
 
-##### Detalhes da consulta
-![teladetalhesconsulta](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-08-27%20at%2016.41.17.png?raw=true)
-- Ao clicar em um agendamento no calendário, um modal se abre para mostrar os detalhes de uma consulta específica. Ele exibe informações essenciais como o nome do paciente, seu contato, horário, local da consulta e quaisquer observações. Os botões de ação na parte inferior permitem que o profissional edite os dados ou marque a consulta como realizada.
+##### Tela de Agendamentos (Visualização em Dispositivos Móveis)
+![teladetalhesconsulta](https://github.com/erikhsu08/webmobile/blob/main/assets/agendamento_mobile.png?raw=true)
+- Esta é a tela principal do nosso site adaptada para visualização em dispositivos móveis. A imagem demonstra como o layout se comporta de forma responsiva, mantendo a usabilidade e a organização das informações mesmo em telas menores.
 
 ### 3. Caráter Extensionista
 O desenvolvimento deste projeto tem um foco extensionista, ou seja, ele foi pensado para resolver um problema específico de nossa comunidade — neste caso, a rotina de trabalho de um profissional de saúde em nossa família. Embora o projeto tenha sido inicialmente pensado para auxiliar uma profissional específica, a natureza da solução — um sistema de agendamento — possui uma relevância que pode se extender para além de um único indivíduo (outros profissionais de saúde, pequenos empreendedores e etc.).
