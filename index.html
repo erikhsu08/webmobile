@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Agendamento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <section class="logo">
+            <span class="logo-icon">S</span>
+            Sistema de Agendamento
+        </section>
+        <section class="user-info">
+            <span class="user-avatar">A</span>
+            Ana Silva
+            <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+        </section>
+    </header>
+
+    <main class="main-layout">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <section class="sidebar-section">
+                <h3 class="sidebar-title">Menu</h3>
+                <a href="#" class="sidebar-item active" onclick="showScreen('appointments')">
+                    <span class="sidebar-icon icon-calendar">📅</span>
+                    Agendamentos
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon icon-users">👥</span>
+                    Pacientes
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon icon-reports">📊</span>
+                    Relatórios
+                </a>
+                <a href="#" class="sidebar-item" onclick="showScreen('prescriptions')">
+                    <span class="sidebar-icon icon-prescriptions">📋</span>
+                    Receitas e Atestados
+                </a>
+            </section>
+            <section class="sidebar-section">
+                <h3 class="sidebar-title">Outros</h3>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon icon-settings">⚙️</span>
+                    Configurações
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon icon-profile">👤</span>
+                    Perfil
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon icon-help">❓</span>
+                    Ajuda
+                </a>
+            </section>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <article class="main-content">
+            <!-- Tela de Agendamentos -->
+            <section id="appointments" class="screen active">
+                <header class="page-header">
+                    <h1 class="page-title">Agendamentos</h1>
+                    <a href="#" class="btn-primary">
+                        ➕ Nova Consulta
+                    </a>
+                </header>
+
+                <section class="stats-grid">
+                    <article class="stat-card">
+                        <span class="stat-icon icon-today">👤</span>
+                        <section class="stat-content">
+                            <h3>3</h3>
+                            <p>Hoje</p>
+                        </section>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-icon icon-week">👥</span>
+                        <section class="stat-content">
+                            <h3>6</h3>
+                            <p>Esta semana</p>
+                        </section>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-icon icon-confirmed">✅</span>
+                        <section class="stat-content">
+                            <h3>4</h3>
+                            <p>Confirmadas</p>
+                        </section>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-icon icon-pending">⏳</span>
+                        <section class="stat-content">
+                            <h3>2</h3>
+                            <p>Pendentes</p>
+                        </section>
+                    </article>
+                </section>
+
+                <section class="calendar-container">
+                    <header class="calendar-header">
+                        <nav class="calendar-nav">
+                            <button class="nav-btn">‹</button>
+                            <h2 class="calendar-title">Agosto 25 - 31</h2>
+                            <button class="nav-btn">›</button>
+                        </nav>
+                        <nav class="view-switcher">
+                            <button class="view-btn">Ano</button>
+                            <button class="view-btn active">Semana</button>
+                            <button class="view-btn">Mês</button>
+                            <button class="view-btn">Dia</button>
+                        </nav>
+                    </header>
+
+                    <section class="calendar-grid">
+                        <span class="calendar-time"></span>
+                        <header class="calendar-day-header">Segunda 25</header>
+                        <header class="calendar-day-header">Terça 26</header>
+                        <header class="calendar-day-header">Quarta 27</header>
+                        <header class="calendar-day-header">Quinta 28</header>
+                        <header class="calendar-day-header">Sexta 29</header>
+                        <header class="calendar-day-header">Sábado 30</header>
+                        <header class="calendar-day-header">Domingo 31</header>
+
+                        <span class="calendar-time">09</span>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell">
+                            <article class="appointment pending">9:00 AM<br>Paulo Carvalho</article>
+                        </section>
+                        <section class="calendar-cell"></section>
+
+                        <span class="calendar-time">10</span>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell">
+                            <article class="appointment">10:00 AM<br>Maria Silva</article>
+                        </section>
+                        <section class="calendar-cell">
+                            <article class="appointment confirmed">10:00 AM<br>Luciana Ferreira</article>
+                        </section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+
+                        <span class="calendar-time">11</span>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell">
+                            <article class="appointment">11:00 AM<br>João Santos</article>
+                        </section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+
+                        <span class="calendar-time">12</span>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+
+                        <span class="calendar-time">13</span>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell">
+                            <article class="appointment confirmed">1:30 PM<br>Ana Costa</article>
+                        </section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+
+                        <span class="calendar-time">14</span>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+
+                        <span class="calendar-time">15</span>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell">
+                            <article class="appointment pending">3:00 PM<br>Carlos Oliveira</article>
+                        </section>
+                        <section class="calendar-cell"></section>
+                        <section class="calendar-cell"></section>
+                    </section>
+                </section>
+            </section>
+
+            <!-- Tela de Receitas e Atestados -->
+            <section id="prescriptions" class="screen">
+                <header class="page-header">
+                    <h1 class="page-title">Receitas e Atestados</h1>
+                </header>
+
+                <section class="prescriptions-layout">
+                    <!-- Lista de Pacientes -->
+                    <aside class="patients-sidebar">
+                        <section class="patients-list">
+                            <header class="patients-header">
+                                <form class="search-box">
+                                    <span class="search-icon">🔍</span>
+                                    <input type="text" class="search-input" placeholder="Buscar pacientes">
+                                </form>
+                            </header>
+                            
+                            <article class="patient-item active" onclick="selectPatient('maria')">
+                                <span class="patient-avatar avatar-1">👩</span>
+                                <section class="patient-info">
+                                    <h4>Maria Silva</h4>
+                                    <p>Tratamento para Acne</p>
+                                </section>
+                            </article>
+                            
+                            <article class="patient-item" onclick="selectPatient('ana')">
+                                <span class="patient-avatar avatar-2">👩</span>
+                                <section class="patient-info">
+                                    <h4>Ana Costa</h4>
+                                    <p>Tratamento para Melasma</p>
+                                </section>
+                            </article>
+                            
+                            <article class="patient-item" onclick="selectPatient('luciana')">
+                                <span class="patient-avatar avatar-3">👩</span>
+                                <section class="patient-info">
+                                    <h4>Luciana Ferreira</h4>
+                                    <p>Tratamento - Queda de Cabelo</p>
+                                </section>
+                            </article>
+                        </section>
+                    </aside>
+
+                    <!-- Painel do Paciente -->
+                    <main class="patient-main">
+                        <article class="patient-panel">
+                            <header class="patient-header">
+                                <section class="patient-details">
+                                    <h2>Maria Silva</h2>
+                                    <address class="contact-info">
+                                        <span class="contact-item">
+                                            <span>📞</span>
+                                            <span>(11) 99999-9999</span>
+                                        </span>
+                                        <span class="contact-item">
+                                            <span>✉️</span>
+                                            <span>maria@email.com</span>
+                                        </span>
+                                    </address>
+                                </section>
+                            </header>
+
+                            <section class="treatment-section">
+                                <h3 class="section-title">Tratamento</h3>
+                                <p class="treatment-info">
+                                    A paciente está em acompanhamento para controle de acne moderada. 
+                                    O tratamento inclui o uso diário de sabonete dermatológico específico para pele oleosa, 
+                                    aplicação noturna de gel com ácido retinóico e antibiótico tópico em áreas inflamadas.
+                                </p>
+                            </section>
+
+                            <section class="treatment-section">
+                                <h3 class="section-title">Histórico de Receituários</h3>
+                                <section class="documents-grid">
+                                    <article class="document-card">
+                                        <span class="doc-icon">PDF</span>
+                                        <h4 class="doc-name">Receituario_2023</h4>
+                                    </article>
+                                    <article class="document-card">
+                                        <span class="doc-icon">PDF</span>
+                                        <h4 class="doc-name">Atestado_280825</h4>
+                                    </article>
+                                </section>
+                            </section>
+
+                            <section class="treatment-section">
+                                <h3 class="section-title">Criar novo Receituário / Atestado</h3>
+                                <nav class="action-buttons form-nav">
+                                    <button class="btn-success" onclick="showForm('receituario')">Receituário</button>
+                                    <button class="btn-secondary" onclick="showForm('atestado')">Atestado</button>
+                                </nav>
+
+                                <form id="prescription-form" class="prescription-form">
+                                    <fieldset class="form-section">
+                                        <label class="form-group">
+                                            <span>Medicamento</span>
+                                            <input type="text" class="form-input" placeholder="Buscar por um medicamento">
+                                        </label>
+                                        <label class="form-group">
+                                            <span>Observações</span>
+                                            <input type="text" class="form-input" placeholder="Adicionar observações">
+                                        </label>
+                                    </fieldset>
+
+                                    <fieldset class="form-section">
+                                        <label class="form-group">
+                                            <span>Dosagem</span>
+                                            <input type="text" class="form-input" placeholder="Exemplo: 20mg">
+                                        </label>
+                                        <label class="form-group">
+                                            <span>Frequência</span>
+                                            <input type="text" class="form-input" placeholder="Exemplo: 2 vezes ao dia">
+                                        </label>
+                                    </fieldset>
+
+                                    <footer class="action-buttons">
+                                        <button type="submit" class="btn-primary">Gerar Receituário</button>
+                                    </footer>
+                                </form>
+
+                                <form id="certificate-form" class="certificate-form" style="display: none;">
+                                    <fieldset class="form-section">
+                                        <label class="form-group">
+                                            <span>Motivo do Atestado</span>
+                                            <textarea class="form-input" rows="3" placeholder="Descreva o motivo do atestado médico"></textarea>
+                                        </label>
+                                        <label class="form-group">
+                                            <span>Período de Afastamento</span>
+                                            <input type="text" class="form-input" placeholder="Exemplo: 3 dias">
+                                        </label>
+                                    </fieldset>
+
+                                    <fieldset class="form-section">
+                                        <label class="form-group">
+                                            <span>Data de Início</span>
+                                            <input type="date" class="form-input">
+                                        </label>
+                                        <label class="form-group">
+                                            <span>Data de Fim</span>
+                                            <input type="date" class="form-input">
+                                        </label>
+                                    </fieldset>
+
+                                    <footer class="action-buttons">
+                                        <button type="submit" class="btn-success">Gerar Atestado</button>
+                                    </footer>
+                                </form>
+                            </section>
+                        </article>
+                    </main>
+                </section>
+            </section>
+        </article>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+        }
+
+        function showScreen(screenName) {
+            // Ocultar todas as telas
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => screen.classList.remove('active'));
+            
+            // Mostrar tela selecionada
+            document.getElementById(screenName).classList.add('active');
+            
+            // Atualizar menu ativo
+            const menuItems = document.querySelectorAll('.sidebar-item');
+            menuItems.forEach(item => item.classList.remove('active'));
+            event.target.closest('.sidebar-item').classList.add('active');
+            
+            // Fechar sidebar no mobile
+            if (window.innerWidth <= 1024) {
+                document.getElementById('sidebar').classList.remove('show');
+            }
+        }
+
+        function selectPatient(patientId) {
+            // Atualizar paciente ativo na lista
+            const patients = document.querySelectorAll('.patient-item');
+            patients.forEach(patient => patient.classList.remove('active'));
+            event.target.closest('.patient-item').classList.add('active');
+            
+            // Aqui você poderia carregar os dados do paciente selecionado
+            // Por simplicidade, estou mantendo os dados estáticos
+        }
+
+        function showForm(formType) {
+            const prescriptionForm = document.getElementById('prescription-form');
+            const certificateForm = document.getElementById('certificate-form');
+            
+            if (formType === 'receituario') {
+                prescriptionForm.style.display = 'block';
+                certificateForm.style.display = 'none';
+            } else {
+                prescriptionForm.style.display = 'none';
+                certificateForm.style.display = 'block';
+            }
+        }
+
+        // Fechar sidebar ao clicar fora no mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (window.innerWidth <= 1024) {
+                if (!sidebar.contains(event.target) && !mobileMenu.contains(event.target)) {
+                    sidebar.classList.remove('show');
+                }
+            }
+        });
+
+        // Ajustar layout em mudanças de tamanho da tela
+        window.addEventListener('resize', function() {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth > 1024) {
+                sidebar.classList.remove('show');
+            }
+        });
+
+        // Simular cliques nos agendamentos do calendário
+        document.querySelectorAll('.appointment').forEach(appointment => {
+            appointment.addEventListener('click', function() {
+                alert('Agendamento: ' + this.textContent.trim());
+            });
+        });
+
+        // Simular cliques nos documentos
+        document.querySelectorAll('.document-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const docName = card.querySelector('.doc-name').textContent;
+                alert('Abrindo documento: ' + docName);
+            });
+        });
+    </script>
+</body>
+</html>
