@@ -1,4 +1,4 @@
-/* Reset e Base */
+
 * {
     margin: 0;
     padding: 0;
@@ -33,7 +33,7 @@ body {
 .logo-icon {
     width: 32px;
     height: 32px;
-    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    background: linear-gradient(135deg, #0889F2, #52D679);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -96,7 +96,7 @@ body {
     padding: 0.75rem 1.5rem;
     color: #64748b;
     text-decoration: none;
-    transition: all 0.2s;
+    transition: all 0.2s; 
     border-left: 3px solid transparent;
 }
 
@@ -107,8 +107,8 @@ body {
 
 .sidebar-item.active {
     background: #eff6ff;
-    color: #2563eb;
-    border-left-color: #3b82f6;
+    color: #0080FF;
+    border-left-color: #0080FF;
 }
 
 .sidebar-icon {
@@ -122,13 +122,6 @@ body {
     color: white;
 }
 
-.icon-calendar { background: #3b82f6; }
-.icon-users { background: #64748b; }
-.icon-reports { background: #64748b; }
-.icon-prescriptions { background: #22c55e; }
-.icon-settings { background: #64748b; }
-.icon-profile { background: #64748b; }
-.icon-help { background: #64748b; }
 
 /* Conteúdo Principal */
 .main-content {
@@ -163,7 +156,8 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    transition: all 0.2s;
+    transition: all 0.2s; /* suavizar efeito de transição pro hover */
+    margin: 20px auto;
 }
 
 .btn-primary:hover {
@@ -179,7 +173,7 @@ body {
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s; /* suavizar efeito de transição pro hover */
 }
 
 .btn-secondary:hover {
@@ -194,7 +188,7 @@ body {
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s; /* suavizar efeito de transição pro hover */
 }
 
 .btn-success:hover {
@@ -207,7 +201,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 .stat-card {
@@ -218,7 +212,7 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
-    transition: all 0.2s;
+    transition: all 0.2s; /* suavizar efeito de transição pro hover */
 }
 
 .stat-card:hover {
@@ -250,10 +244,11 @@ body {
     font-size: 0.875rem;
 }
 
-.icon-today { background: linear-gradient(135deg, #60a5fa, #3b82f6); }
-.icon-week { background: linear-gradient(135deg, #a78bfa, #8b5cf6); }
-.icon-confirmed { background: linear-gradient(135deg, #34d399, #10b981); }
-.icon-pending { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+.icon-today { background: rgba(0, 128, 255, 0.21); }      
+.icon-week { background: rgba(130, 128, 255, 0.21); }     
+.icon-confirmed { background: rgba(74, 217, 145, 0.21); } 
+.icon-pending { background: rgba(254, 197, 61, 0.21); }   
+
 
 /* Calendário */
 .calendar-container {
@@ -288,7 +283,7 @@ body {
     align-items: center;
     justify-content: center;
     color: #64748b;
-    transition: all 0.2s;
+    transition: all 0.2s; /* suavizar efeito de transição pro hover */
 }
 
 .nav-btn:hover {
@@ -315,7 +310,7 @@ body {
     cursor: pointer;
     font-size: 0.875rem;
     color: #64748b;
-    transition: all 0.2s;
+    transition: all 0.2s; /* suavizar efeito de transição pro hover */
 }
 
 .view-btn.active {
@@ -359,15 +354,15 @@ body {
 }
 
 .appointment {
-    background: linear-gradient(135deg, #e0f2fe, #b3e5fc);
-    border: 1px solid #29b6f6;
+    background: linear-gradient(135deg, rgba(0, 128, 255, 0.2), rgba(0, 128, 255, 0.4));
+    border: 1px solid rgba(0, 128, 255, 0.7);
     border-radius: 6px;
     padding: 0.5rem;
     margin-bottom: 0.25rem;
     font-size: 0.75rem;
     color: #0277bd;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s; /* suavizar efeito de transição pro hover */
     display: block;
 }
 
@@ -377,260 +372,15 @@ body {
 }
 
 .appointment.confirmed {
-    background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
-    border-color: #66bb6a;
+    background: linear-gradient(135deg, rgba(74, 217, 145, 0.2), rgba(74, 217, 145, 0.4));
+    border: 1px solid rgba(74, 217, 145, 0.7);
     color: #2e7d32;
 }
 
 .appointment.pending {
-    background: linear-gradient(135deg, #fff8e1, #ffecb3);
-    border-color: #ffb74d;
+    background: linear-gradient(135deg, rgba(254, 197, 61, 0.2), rgba(254, 197, 61, 0.4));
+    border: 1px solid rgba(254, 197, 61, 0.7);
     color: #f57c00;
-}
-
-/* Tela de Receitas e Atestados */
-.prescriptions-layout {
-    display: flex;
-    gap: 2rem;
-    height: calc(100vh - 200px);
-}
-
-.patients-sidebar {
-    width: 300px;
-    flex-shrink: 0;
-}
-
-.patients-list {
-    background: #ffffff;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-}
-
-.patients-header {
-    padding: 1.5rem;
-    border-bottom: 1px solid #e2e8f0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.search-box {
-    position: relative;
-    max-width: 300px;
-    width: 100%;
-}
-
-.search-input {
-    width: 100%;
-    padding: 0.75rem 1rem 0.75rem 2.5rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 0.875rem;
-}
-
-.search-icon {
-    position: absolute;
-    left: 0.75rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #64748b;
-}
-
-.patient-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid #f1f5f9;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.patient-item:hover {
-    background: #f8fafc;
-}
-
-.patient-item.active {
-    background: #eff6ff;
-    border-right: 3px solid #3b82f6;
-}
-
-.patient-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 600;
-    font-size: 1.125rem;
-}
-
-.avatar-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
-.avatar-2 { background: linear-gradient(135deg, #34d399, #10b981); }
-.avatar-3 { background: linear-gradient(135deg, #60a5fa, #3b82f6); }
-
-.patient-info h4 {
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 0.25rem;
-}
-
-.patient-info p {
-    color: #64748b;
-    font-size: 0.875rem;
-}
-
-/* Painel do Paciente */
-.patient-main {
-    flex: 1;
-}
-
-.patient-panel {
-    background: #ffffff;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    padding: 2rem;
-}
-
-.patient-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 2rem;
-    gap: 2rem;
-}
-
-.patient-details h2 {
-    font-size: 1.875rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 1rem;
-}
-
-.contact-info {
-    display: flex;
-    gap: 2rem;
-    color: #64748b;
-    font-size: 0.875rem;
-    font-style: normal;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.treatment-section {
-    margin-bottom: 3rem;
-}
-
-.section-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 1rem;
-}
-
-.treatment-info {
-    background: #f8fafc;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    line-height: 1.6;
-    color: #475569;
-}
-
-.documents-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.document-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 1rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.document-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
-}
-
-.doc-icon {
-    width: 48px;
-    height: 48px;
-    background: #ef4444;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 0.75rem;
-    color: white;
-    font-weight: bold;
-}
-
-.doc-name {
-    font-weight: 600;
-    color: #1e293b;
-    font-size: 0.875rem;
-}
-
-/* Formulários */
-.form-nav {
-    margin-bottom: 2rem;
-}
-
-.prescription-form,
-.certificate-form {
-    display: block;
-}
-
-.form-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    border: none;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group span {
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 0.5rem;
-}
-
-.form-input {
-    padding: 0.75rem 1rem;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    font-family: inherit;
-}
-
-.form-input:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.action-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
 }
 
 /* Menu Mobile */
@@ -642,15 +392,6 @@ body {
     padding: 0.5rem;
     border-radius: 6px;
     cursor: pointer;
-}
-
-/* Ocultar/Mostrar telas */
-.screen {
-    display: none;
-}
-
-.screen.active {
-    display: block;
 }
 
 /* Responsividade */
