@@ -7,73 +7,71 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <section class="logo">
-            <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+            <button class="mobile-menu" id="mobileMenuBtn">☰</button>
             <span class="logo-icon"></span>
             Sistema de Agendamento
         </section>
-        <section class="user-info">
+        <section class="user-info" id="userInfo" style="cursor: pointer;">
             <span class="user-avatar">A</span>
             Ana Silva
         </section>
     </header>
 
     <main class="main-layout">
-        <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
             <section class="sidebar-section">
                 <h3 class="sidebar-title">Menu</h3>
-                <a href="#" class="sidebar-item active" onclick="showScreen('appointments')">
-                    <span class="sidebar-icon icon-calendar">
-                        <img src="assets/ic_agendamentos.png" alt="Agendamentos">
+                <a href="#appointments" class="sidebar-item active" data-screen="appointments" data-icon="ic_agendamentos">
+                    <span class="sidebar-icon">
+                        <img src="assets/ic_agendamentos_selected.png" alt="Agendamentos">
                     </span>
                     Agendamentos
                 </a>
-                <a href="#" class="sidebar-item">
-                    <span class="sidebar-icon icon-users">
-                        <img src="assets/ic_paciente.png" alt="Pacientes">
+
+                <a href="#patients" class="sidebar-item" data-screen="patients" data-icon="ic_paciente">
+                    <span class="sidebar-icon">
+                        <img src="assets/ic_paciente_selected.png" alt="Pacientes">
                     </span>
                     Pacientes
                 </a>
-                <a href="#" class="sidebar-item">
-                    <span class="sidebar-icon icon-reports">
-                        <img src="assets/ic_relatorio.png" alt="Relatórios">
+                <a href="#reports" class="sidebar-item" data-screen="reports" data-icon="ic_relatorio">
+                    <span class="sidebar-icon">
+                        <img src="assets/ic_relatorio_selected.png" alt="Relatórios">
                     </span>
                     Relatórios
                 </a>
-                <a href="#" class="sidebar-item" onclick="showScreen('prescriptions')">
-                    <span class="sidebar-icon icon-prescriptions">
-                        <img src="assets/ic_receitas.png" alt="Receitas">
+                <a href="#prescriptions" class="sidebar-item" data-screen="prescriptions" data-icon="ic_receitas">
+                    <span class="sidebar-icon">
+                        <img src="assets/ic_receitas_selected.png" alt="Receitas">
                     </span>
                     Receitas e Atestados
                 </a>
             </section>
             <section class="sidebar-section">
                 <h3 class="sidebar-title">Outros</h3>
-                <a href="#" class="sidebar-item">
-                    <span class="sidebar-icon icon-settings">
-                        <img src="assets/ic_config.png" alt="Configurações">
+                <a href="#settings" class="sidebar-item" data-screen="settings" data-icon="ic_config">
+                    <span class="sidebar-icon">
+                        <img src="assets/ic_config_selected.png" alt="Configurações">
                     </span>
                     Configurações
                 </a>
-                <a href="#" class="sidebar-item">
-                    <span class="sidebar-icon icon-profile">
-                        <img src="assets/ic_paciente.png" alt="Perfil">
+                <a href="#profile" class="sidebar-item" data-screen="profile" data-icon="ic_paciente">
+                    <span class="sidebar-icon">
+                        <img src="assets/ic_paciente_selected.png" alt="Perfil">
                     </span>
                     Perfil
                 </a>
-                <a href="#" class="sidebar-item">
-                    <span class="sidebar-icon icon-help">
-                        <img src="assets/ic_info.png" alt="Ajuda">
+                <a href="#help" class="sidebar-item" data-screen="help" data-icon="ic_info">
+                    <span class="sidebar-icon">
+                        <img src="assets/ic_info_selected.png" alt="Ajuda">
                     </span>
                     Ajuda
                 </a>
             </section>
         </nav>
 
-        <!-- Conteúdo Principal -->
         <article class="main-content">
             <!-- Tela de Agendamentos -->
             <section id="appointments" class="screen active">
@@ -81,154 +79,140 @@
                     <h1 class="page-title">Agendamentos</h1>
                 </header>
 
-                <section class="stats-grid">
-                    <article class="stat-card">
-                        <span class="stat-icon icon-today">
-                            <img src="assets/ic_individuo.png" alt="Hoje">
-                        </span>
-                        <section class="stat-content">
-                            <h3>3</h3>
-                            <p>Hoje</p>
-                        </section>
-                    </article>
-                    <article class="stat-card">
-                        <span class="stat-icon icon-week">
-                            <img src="assets/ic_grupo.png" alt="Semana">
-                        </span>
-                        <section class="stat-content">
-                            <h3>6</h3>
-                            <p>Esta semana</p>
-                        </section>
-                    </article>
-                    <article class="stat-card">
-                        <span class="stat-icon icon-confirmed">
-                            <img src="assets/ic_check.png" alt="Confirmadas">
-                        </span>
-                        <section class="stat-content">
-                            <h3>4</h3>
-                            <p>Confirmadas</p>
-                        </section>
-                    </article>
-                    <article class="stat-card">
-                        <span class="stat-icon icon-pending">
-                            <img src="assets/ic_pendente.png" alt="Pendentes">
-                        </span>
-                        <section class="stat-content">
-                            <h3>2</h3>
-                            <p>Pendentes</p>
-                        </section>
-                    </article>
-                </section>
+                <section class="stats-grid" id="statsGrid"></section>
 
-                <!-- Botão de nova consulta -->
-                <a href="#" class="btn-primary">
-                    <img src="assets/ic_add.png" alt="Add"> 
+                <button class="btn-primary" id="newAppointmentBtn">
+                    <span>+</span>
                     Nova Consulta
-                </a>
+                </button>
 
                 <section class="calendar-container">
                     <header class="calendar-header">
                         <nav class="calendar-nav">
-                            <button class="nav-btn">‹</button>
-                            <h2 class="calendar-title">Agosto 25 - 31</h2>
-                            <button class="nav-btn">›</button>
+                            <button class="nav-btn" id="prevPeriod">‹</button>
+                            <h2 class="calendar-title" id="calendarTitle"></h2>
+                            <button class="nav-btn" id="nextPeriod">›</button>
                         </nav>
                         <nav class="view-switcher">
-                            <button class="view-btn">Ano</button>
-                            <button class="view-btn active">Semana</button>
-                            <button class="view-btn">Mês</button>
-                            <button class="view-btn">Dia</button>
+                            <button class="view-btn" data-view="year">Ano</button>
+                            <button class="view-btn active" data-view="week">Semana</button>
+                            <button class="view-btn" data-view="month">Mês</button>
+                            <button class="view-btn" data-view="day">Dia</button>
                         </nav>
                     </header>
 
-                    <section class="calendar-grid">
-                        <span class="calendar-time"></span>
-                        <header class="calendar-day-header">Segunda 25</header>
-                        <header class="calendar-day-header">Terça 26</header>
-                        <header class="calendar-day-header">Quarta 27</header>
-                        <header class="calendar-day-header">Quinta 28</header>
-                        <header class="calendar-day-header">Sexta 29</header>
-                        <header class="calendar-day-header">Sábado 30</header>
-                        <header class="calendar-day-header">Domingo 31</header>
-
-                        <span class="calendar-time">09</span>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell">
-                            <article class="appointment pending">9:00 AM<br>Paulo Carvalho</article>
-                        </section>
-                        <section class="calendar-cell"></section>
-
-                        <span class="calendar-time">10</span>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell">
-                            <article class="appointment">10:00 AM<br>Maria Silva</article>
-                        </section>
-                        <section class="calendar-cell">
-                            <article class="appointment confirmed">10:00 AM<br>Luciana Ferreira</article>
-                        </section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-
-                        <span class="calendar-time">11</span>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell">
-                            <article class="appointment">11:00 AM<br>João Santos</article>
-                        </section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-
-                        <span class="calendar-time">12</span>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-
-                        <span class="calendar-time">13</span>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell">
-                            <article class="appointment confirmed">1:30 PM<br>Ana Costa</article>
-                        </section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-
-                        <span class="calendar-time">14</span>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-
-                        <span class="calendar-time">15</span>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell">
-                            <article class="appointment pending">3:00 PM<br>Carlos Oliveira</article>
-                        </section>
-                        <section class="calendar-cell"></section>
-                        <section class="calendar-cell"></section>
-                    </section>
+                    <section class="calendar-content" id="calendarContent"></section>
                 </section>
+            </section>
+
+            <!-- Tela de Pacientes -->
+            <section id="patients" class="screen">
+                <header class="page-header">
+                    <h1 class="page-title">Pacientes</h1>
+                    <button class="btn-primary" id="newPatientBtn">+ Novo Paciente</button>
+                </header>
+                <section class="patients-list" id="patientsList"></section>
+            </section>
+
+            <!-- Tela de Relatórios -->
+            <section id="reports" class="screen">
+                <header class="page-header">
+                    <h1 class="page-title">Relatórios</h1>
+                </header>
+                <section class="reports-content" id="reportsContent"></section>
+            </section>
+
+            <!-- Tela de Receitas -->
+            <section id="prescriptions" class="screen">
+                <header class="page-header">
+                    <h1 class="page-title">Receitas e Atestados</h1>
+                    <button class="btn-primary" id="newPrescriptionBtn">+ Nova Receita</button>
+                </header>
+                <section class="prescriptions-list" id="prescriptionsList"></section>
+            </section>
+
+            <!-- Tela de Configurações -->
+            <section id="settings" class="screen">
+                <header class="page-header">
+                    <h1 class="page-title">Configurações</h1>
+                </header>
+                <section class="settings-content" id="settingsContent"></section>
+            </section>
+
+            <!-- Tela de Perfil -->
+            <section id="profile" class="screen">
+                <header class="page-header">
+                    <h1 class="page-title">Perfil</h1>
+                </header>
+                <section class="profile-content" id="profileContent"></section>
+            </section>
+
+            <!-- Tela de Ajuda -->
+            <section id="help" class="screen">
+                <header class="page-header">
+                    <h1 class="page-title">Ajuda</h1>
+                </header>
+                <section class="help-content" id="helpContent"></section>
             </section>
         </article>
     </main>
+
+    <!-- Modal de Detalhes do Agendamento -->
+    <aside class="modal" id="appointmentModal">
+        <article class="modal-content">
+            <header class="modal-header">
+                <h2>Detalhes do Agendamento</h2>
+                <button class="modal-close" id="closeAppointmentModal">×</button>
+            </header>
+            <section class="modal-body" id="appointmentDetails"></section>
+            <footer class="modal-footer">
+                <button class="btn-secondary" id="cancelAppointmentBtn">Cancelar Consulta</button>
+                <button class="btn-primary" id="editAppointmentBtn">Editar</button>
+            </footer>
+        </article>
+    </aside>
+
+    <!-- Modal de Nova Consulta -->
+    <aside class="modal" id="newAppointmentModal">
+        <article class="modal-content">
+            <header class="modal-header">
+                <h2>Nova Consulta</h2>
+                <button class="modal-close" id="closeNewAppointmentModal">×</button>
+            </header>
+            <section class="modal-body">
+                <form id="appointmentForm">
+                    <label>
+                        Paciente:
+                        <input type="text" name="patient" required>
+                    </label>
+                    <label>
+                        Data:
+                        <input type="date" name="date" required>
+                    </label>
+                    <label>
+                        Horário:
+                        <input type="time" name="time" required>
+                    </label>
+                    <label>
+                        Status:
+                        <select name="status">
+                            <option value="pending">Pendente</option>
+                            <option value="confirmed">Confirmado</option>
+                        </select>
+                    </label>
+                    <label>
+                        Observações:
+                        <textarea name="notes" rows="3"></textarea>
+                    </label>
+                </form>
+            </section>
+            <footer class="modal-footer">
+                <button class="btn-secondary" id="cancelNewAppointment">Cancelar</button>
+                <button class="btn-primary" id="saveAppointment">Salvar</button>
+            </footer>
+        </article>
+    </aside>
+
+    <script src="script.js"></script>
 </body>
 </html>
