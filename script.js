@@ -54,6 +54,9 @@ const state = {
     nextId: 7
 };
 
+// Estado para a tela de receitas
+let selectedPatientId = null;
+
 // Mudar o icone no side bar conforme as seções forem selecionadas
 document.querySelectorAll('.sidebar-item').forEach(item => {
     item.addEventListener('click', () => {
@@ -560,8 +563,6 @@ const closeModal = (modalId) => {
     document.getElementById(modalId).classList.remove('show');
 };
 
-
-
 // Renderizar outras telas
 const renderPatients = () => {
     const html = `
@@ -600,11 +601,175 @@ const renderReports = () => {
 };
 
 const renderPrescriptions = () => {
+    renderPatientsSidebar();
+    if (selectedPatientId) {
+        renderPatientPanel(selectedPatientId);
+    }
+};
+
+const renderPatientsSidebar = () => {
+    const searchInput = document.getElementById('searchPatients');
+    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+    
+    const filteredPatients = state.patients.filter(p => 
+        p.name.toLowerCase().includes(searchTerm)
+    );
+    
+    const html = filteredPatients.map((patient, index) => `
+        <article class="patient-item ${selectedPatientId === patient.id ? 'active' : ''}" onclick="selectPatient(${patient.id})">
+            <span class="patient-avatar avatar-${(index % 3) + 1}">👤</span>
+            <section class="patient-info">
+                <h4>${patient.name}</h4>
+                <p>${patient.phone}</p>
+            </section>
+        </article>
+    `).join('');
+    
+    document.getElementById('patientsSidebarList').innerHTML = html;
+};
+
+const selectPatient = (patientId) => {
+    selectedPatientId = patientId;
+    renderPatientsSidebar();
+    renderPatientPanel(patientId);
+};
+
+const renderPatientPanel = (patientId) => {
+    const patient = state.patients.find(p => p.id === patientId);
+    if (!patient) return;
+    
+    const patientAppointments = state.appointments.filter(a => a.patient === patient.name);
+    
     const html = `
-        <h2>Receitas e Atestados</h2>
-        <p style="margin-top: 1rem; color: #64748b;">Nenhuma receita cadastrada ainda.</p>
+        <header class="patient-header">
+            <section class="patient-details">
+                <h2>${patient.name}</h2>
+                <address class="contact-info">
+                    <span class="contact-item">
+                        <span>📞</span>
+                        <span>${patient.phone}</span>
+                    </span>
+                    <span class="contact-item">
+                        <span>✉️</span>
+                        <span>${patient.email}</span>
+                    </span>
+                </address>
+            </section>
+        </header>
+
+        <section class="treatment-section">
+            <h3 class="section-title">Informações do Paciente</h3>
+            <p class="treatment-info">
+                Paciente com ${patientAppointments.length} consulta(s) registrada(s) no sistema.
+                ${patientAppointments.length > 0 ? `Última consulta: ${formatDate(patientAppointments[patientAppointments.length - 1].date).dayNumber}/${formatDate(patientAppointments[patientAppointments.length - 1].date).monthName}` : ''}
+            </p>
+        </section>
+
+        <section class="treatment-section">
+            <h3 class="section-title">Histórico de Receituários</h3>
+            <section class="documents-grid">
+                <article class="document-card">
+                    <span class="doc-icon">PDF</span>
+                    <h4 class="doc-name">Receituario_2024</h4>
+                </article>
+                <article class="document-card">
+                    <span class="doc-icon">PDF</span>
+                    <h4 class="doc-name">Atestado_exemplo</h4>
+                </article>
+            </section>
+        </section>
+
+        <section class="treatment-section">
+            <h3 class="section-title">Criar novo Receituário / Atestado</h3>
+            <nav class="action-buttons form-nav">
+                <button class="btn-success" onclick="showForm('receituario')">Receituário</button>
+                <button class="btn-secondary" onclick="showForm('atestado')">Atestado</button>
+            </nav>
+
+            <form id="prescription-form" class="prescription-form">
+                <fieldset class="form-section">
+                    <label class="form-group">
+                        <span>Medicamento</span>
+                        <input type="text" class="form-input" placeholder="Buscar por um medicamento">
+                    </label>
+                    <label class="form-group">
+                        <span>Observações</span>
+                        <input type="text" class="form-input" placeholder="Adicionar observações">
+                    </label>
+                </fieldset>
+
+                <fieldset class="form-section">
+                    <label class="form-group">
+                        <span>Dosagem</span>
+                        <input type="text" class="form-input" placeholder="Exemplo: 20mg">
+                    </label>
+                    <label class="form-group">
+                        <span>Frequência</span>
+                        <input type="text" class="form-input" placeholder="Exemplo: 2 vezes ao dia">
+                    </label>
+                </fieldset>
+
+                <footer class="action-buttons">
+                    <button type="submit" class="btn-primary" onclick="generatePrescription(event)">Gerar Receituário</button>
+                </footer>
+            </form>
+
+            <form id="certificate-form" class="certificate-form" style="display: none;">
+                <fieldset class="form-section">
+                    <label class="form-group">
+                        <span>Motivo do Atestado</span>
+                        <textarea class="form-input" rows="3" placeholder="Descreva o motivo do atestado médico"></textarea>
+                    </label>
+                    <label class="form-group">
+                        <span>Período de Afastamento</span>
+                        <input type="text" class="form-input" placeholder="Exemplo: 3 dias">
+                    </label>
+                </fieldset>
+
+                <fieldset class="form-section">
+                    <label class="form-group">
+                        <span>Data de Início</span>
+                        <input type="date" class="form-input">
+                    </label>
+                    <label class="form-group">
+                        <span>Data de Fim</span>
+                        <input type="date" class="form-input">
+                    </label>
+                </fieldset>
+
+                <footer class="action-buttons">
+                    <button type="submit" class="btn-success" onclick="generateCertificate(event)">Gerar Atestado</button>
+
+                    </button>
+                </footer>
+            </form>
+        </section>
     `;
-    document.getElementById('prescriptionsList').innerHTML = html;
+    
+    document.getElementById('patientPanel').innerHTML = html;
+};
+
+const showForm = (formType) => {
+    const prescriptionForm = document.getElementById('prescription-form');
+    const certificateForm = document.getElementById('certificate-form');
+    
+    if (formType === 'receituario') {
+        prescriptionForm.style.display = 'block';
+        certificateForm.style.display = 'none';
+    } else {
+        prescriptionForm.style.display = 'none';
+        certificateForm.style.display = 'block';
+    }
+};
+
+const generatePrescription = (e) => {
+    e.preventDefault();
+    alert('Receituário gerado com sucesso!');
+};
+
+const generateCertificate = (e) => {
+    e.preventDefault();
+    alert('Atestado gerado com sucesso!');
 };
 
 const renderSettings = () => {
@@ -644,6 +809,16 @@ const renderHelp = () => {
 const init = () => {
     // Navegação
     initScreens();
+    
+    // Busca de pacientes na tela de receitas
+    const searchInput = document.getElementById('searchPatients');
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            if (document.getElementById('prescriptions').classList.contains('active')) {
+                renderPatientsSidebar();
+            }
+        });
+    }
     
     // Menu mobile
     document.getElementById('mobileMenuBtn').addEventListener('click', () => {

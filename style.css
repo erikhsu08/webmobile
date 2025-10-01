@@ -122,6 +122,11 @@ body {
     font-size: 1.2rem;
 }
 
+.sidebar-icon img {
+    width: 20px;
+    height: 20px;
+}
+
 /* Main */
 .main-content {
     flex: 1;
@@ -190,6 +195,21 @@ body {
     background: #e71e03;
 }
 
+.btn-success {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-success:hover {
+    background: #059669;
+}
+
 /* Stats */
 .stats-grid {
     display: grid;
@@ -222,6 +242,11 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
+}
+
+.icon-img {
+    width: 24px;
+    height: 24px;
 }
 
 .stat-content h3 {
@@ -556,7 +581,6 @@ form textarea:focus {
 
 /* Sections de conteudo */
 .patients-list,
-.prescriptions-list,
 .reports-content,
 .settings-content,
 .profile-content,
@@ -566,6 +590,266 @@ form textarea:focus {
     border: 1px solid #e2e8f0;
     padding: 2rem;
     min-height: 400px;
+}
+
+/* Tela de Receitas e Atestados */
+.prescriptions-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 1.5rem;
+    height: calc(100vh - 200px);
+}
+
+.patients-sidebar {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.patients-sidebar .patients-list {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0;
+    border: none;
+    min-height: auto;
+}
+
+.patients-header {
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f8fafc;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.search-icon {
+    font-size: 1rem;
+}
+
+.search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    flex: 1;
+    font-size: 0.875rem;
+    padding: 0;
+    margin: 0;
+}
+
+.patient-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.patient-item:hover {
+    background: #f8fafc;
+}
+
+.patient-item.active {
+    background: #e0f2fe;
+    border-left: 3px solid #0ea5e9;
+}
+
+.patient-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.avatar-1 { background: #dbeafe; }
+.avatar-2 { background: #fce7f3; }
+.avatar-3 { background: #fef3c7; }
+
+.patient-info h4 {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.patient-info p {
+    margin: 0.25rem 0 0 0;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.patient-main {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.patient-panel {
+    padding: 2rem;
+}
+
+.patient-header {
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.patient-details h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+    color: #1e293b;
+}
+
+.contact-info {
+    display: flex;
+    gap: 2rem;
+    font-style: normal;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.treatment-section {
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 1rem 0;
+}
+
+.treatment-info {
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.documents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.document-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.document-card:hover {
+    background: #e0f2fe;
+    border-color: #0ea5e9;
+    transform: translateY(-2px);
+}
+
+.doc-icon {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    background: #ef4444;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.75rem;
+    margin: 0 auto 0.5rem auto;
+}
+
+.doc-name {
+    font-size: 0.875rem;
+    color: #1e293b;
+    margin: 0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.form-nav {
+    margin-bottom: 1.5rem;
+}
+
+.form-nav .btn-secondary,
+.form-nav .btn-success {
+    margin: 0;
+}
+
+.prescription-form,
+.certificate-form {
+    margin-top: 1.5rem;
+}
+
+.form-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.form-input {
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    transition: border-color 0.2s;
+    width: 100%;
+    margin: 0;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+textarea.form-input {
+    resize: vertical;
+    font-family: inherit;
 }
 
 /* Responsividade */
@@ -593,6 +877,14 @@ form textarea:focus {
 
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .prescriptions-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .patients-sidebar {
+        max-height: 300px;
     }
 }
 
@@ -628,6 +920,23 @@ form textarea:focus {
 
     .year-grid {
         grid-template-columns: 1fr;
+    }
+
+    .form-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .patient-panel {
+        padding: 1rem;
     }
 }
 
