@@ -640,113 +640,15 @@ const renderPatientPanel = (patientId) => {
     
     const patientAppointments = state.appointments.filter(a => a.patient === patient.name);
     
-    const html = `
-        <header class="patient-header">
-            <section class="patient-details">
-                <h2>${patient.name}</h2>
-                <address class="contact-info">
-                    <span class="contact-item">
-                        <span>📞</span>
-                        <span>${patient.phone}</span>
-                    </span>
-                    <span class="contact-item">
-                        <span>✉️</span>
-                        <span>${patient.email}</span>
-                    </span>
-                </address>
-            </section>
-        </header>
-
-        <section class="treatment-section">
-            <h3 class="section-title">Informações do Paciente</h3>
-            <p class="treatment-info">
-                Paciente com ${patientAppointments.length} consulta(s) registrada(s) no sistema.
-                ${patientAppointments.length > 0 ? `Última consulta: ${formatDate(patientAppointments[patientAppointments.length - 1].date).dayNumber}/${formatDate(patientAppointments[patientAppointments.length - 1].date).monthName}` : ''}
-            </p>
-        </section>
-
-        <section class="treatment-section">
-            <h3 class="section-title">Histórico de Receituários</h3>
-            <section class="documents-grid">
-                <article class="document-card">
-                    <span class="doc-icon">PDF</span>
-                    <h4 class="doc-name">Receituario_2024</h4>
-                </article>
-                <article class="document-card">
-                    <span class="doc-icon">PDF</span>
-                    <h4 class="doc-name">Atestado_exemplo</h4>
-                </article>
-            </section>
-        </section>
-
-        <section class="treatment-section">
-            <h3 class="section-title">Criar novo Receituário / Atestado</h3>
-            <nav class="action-buttons form-nav">
-                <button class="btn-success" onclick="showForm('receituario')">Receituário</button>
-                <button class="btn-secondary" onclick="showForm('atestado')">Atestado</button>
-            </nav>
-
-            <form id="prescription-form" class="prescription-form">
-                <fieldset class="form-section">
-                    <label class="form-group">
-                        <span>Medicamento</span>
-                        <input type="text" class="form-input" placeholder="Buscar por um medicamento">
-                    </label>
-                    <label class="form-group">
-                        <span>Observações</span>
-                        <input type="text" class="form-input" placeholder="Adicionar observações">
-                    </label>
-                </fieldset>
-
-                <fieldset class="form-section">
-                    <label class="form-group">
-                        <span>Dosagem</span>
-                        <input type="text" class="form-input" placeholder="Exemplo: 20mg">
-                    </label>
-                    <label class="form-group">
-                        <span>Frequência</span>
-                        <input type="text" class="form-input" placeholder="Exemplo: 2 vezes ao dia">
-                    </label>
-                </fieldset>
-
-                <footer class="action-buttons">
-                    <button type="submit" class="btn-primary" onclick="generatePrescription(event)">Gerar Receituário</button>
-                </footer>
-            </form>
-
-            <form id="certificate-form" class="certificate-form" style="display: none;">
-                <fieldset class="form-section">
-                    <label class="form-group">
-                        <span>Motivo do Atestado</span>
-                        <textarea class="form-input" rows="3" placeholder="Descreva o motivo do atestado médico"></textarea>
-                    </label>
-                    <label class="form-group">
-                        <span>Período de Afastamento</span>
-                        <input type="text" class="form-input" placeholder="Exemplo: 3 dias">
-                    </label>
-                </fieldset>
-
-                <fieldset class="form-section">
-                    <label class="form-group">
-                        <span>Data de Início</span>
-                        <input type="date" class="form-input">
-                    </label>
-                    <label class="form-group">
-                        <span>Data de Fim</span>
-                        <input type="date" class="form-input">
-                    </label>
-                </fieldset>
-
-                <footer class="action-buttons">
-                    <button type="submit" class="btn-success" onclick="generateCertificate(event)">Gerar Atestado</button>
-
-                    </button>
-                </footer>
-            </form>
-        </section>
-    `;
+    // Atualizar apenas os dados dinâmicos
+    document.getElementById('patientName').textContent = patient.name;
+    document.getElementById('patientPhone').textContent = patient.phone;
+    document.getElementById('patientEmail').textContent = patient.email;
     
-    document.getElementById('patientPanel').innerHTML = html;
+    const infoText = `Paciente com ${patientAppointments.length} consulta(s) registrada(s) no sistema.
+        ${patientAppointments.length > 0 ? `Última consulta: ${formatDate(patientAppointments[patientAppointments.length - 1].date).dayNumber}/${formatDate(patientAppointments[patientAppointments.length - 1].date).monthName}` : ''}`;
+    
+    document.getElementById('patientInfo').textContent = infoText;
 };
 
 const showForm = (formType) => {
