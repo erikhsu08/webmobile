@@ -177,27 +177,26 @@ dos principais componentes do nosso site para explicar nesse tutorial.
 
 **Componentes**
 
-> **.header**: Estilizamos o cabeçalho com
-> ```justify-content:space-between``` para distribuir o logo e as informações
-> do usuário e usamos box-shadow para dar um efeito de destaque.
+**.header**: Estilizamos o cabeçalho com
+```justify-content:space-between``` para distribuir o logo e as informações do usuário e usamos box-shadow para dar um efeito de destaque.
 
 ![headerCode](https://github.com/erikhsu08/webmobile/blob/main/assets/uqnrklt2.png?raw=true)
 
 ![cabecalho](https://github.com/erikhsu08/webmobile/blob/main/assets/pxpubazh.png?raw=true)
 
->  **.sidebar-item**: Para os itens da sidebar usamos a regra :hover , que adiciona um efeito de destaque ao passar o mouse. O estilo **.active** é usado para o item selecionado, com uma borda azul à esquerda (```border-left-color: \#0080FF```).
+**.sidebar-item**: Para os itens da sidebar usamos a regra :hover , que adiciona um efeito de destaque ao passar o mouse. O estilo **.active** é usado para o item selecionado, com uma borda azul à esquerda (```border-left-color: \#0080FF```).
 
 ![sidebarCode](https://github.com/erikhsu08/webmobile/blob/main/assets/3ymfdkzh.png?raw=true)
 
 ![sideBarSite](https://github.com/erikhsu08/webmobile/blob/main/assets/qse2rxmv.png?raw=true)
 
- **.stat-card**: Aplicamos border-radius, box-shadow e um efeito de ```:hover``` para um visual mais interativo.
+**.stat-card**: Aplicamos border-radius, box-shadow e um efeito de ```:hover``` para um visual mais interativo.
 
  ![statCard](https://github.com/erikhsu08/webmobile/blob/main/assets/c5fp2ogo.png?raw=true)
 
 ![statCards](https://github.com/erikhsu08/webmobile/blob/main/assets/hz1bpxtv.png?raw=true)
 
-● **.btn-primary**: Para estilizar o botão "Nova Consulta", usamos o linear-gradient para um efeito de cor gradiente.
+**.btn-primary**: Para estilizar o botão "Nova Consulta", usamos o linear-gradient para um efeito de cor gradiente.
 
 
 ![btnprimary](https://github.com/erikhsu08/webmobile/blob/main/assets/lcm0o0sv.png?raw=true)
@@ -239,7 +238,7 @@ menor:
 ![siteMenor](https://github.com/erikhsu08/webmobile/blob/main/assets/rck4zu02.png?raw=true)
 
 
-1[siteMenor2](https://github.com/erikhsu08/webmobile/blob/main/assets/n5kdws3a.png?raw=true)
+![siteMenor2](https://github.com/erikhsu08/webmobile/blob/main/assets/n5kdws3a.png?raw=true)
 
 **2.5** **Lógica** **e** **Interatividade** **(JavaScript)**
 
@@ -321,7 +320,7 @@ Para que o site reaja às ações do usuário, usamos event listeners.
 - Navegação do Calendário: Os botões de navegação (#prevPeriod e #nextPeriod) chamam a função MapsCalendar(), que atualiza a data de referência e redesenha o calendário.
 ![](https://github.com/erikhsu08/webmobile/blob/main/assets/tezjo2oj.png?raw=true)
 
-1[](https://github.com/erikhsu08/webmobile/blob/main/assets/uyfhys3v.png?raw=true)
+![](https://github.com/erikhsu08/webmobile/blob/main/assets/uyfhys3v.png?raw=true)
 
 -  Modais: O botão "Nova Consulta" (#newAppointmentBtn) dispara a função showNewAppointmentModal(). Ao clicar em um agendamento, o evento
 ```attachAppointmentListeners()``` garante que o modal de detalhes apareça.
@@ -329,7 +328,26 @@ Para que o site reaja às ações do usuário, usamos event listeners.
 ![](https://github.com/erikhsu08/webmobile/blob/main/assets/mrs44rjy.png?raw=true)
 ![](https://github.com/erikhsu08/webmobile/blob/main/assets/rmsh02d1.png?raw=true)
 
-**3.** **Conclusão**
+**3.** **Next.Js**
+
+Para transformar o projeto uma aplicação web moderna e escalável, o sistema foi migrado para o framework Next.js (utilizando React). Esta mudança introduziu melhorias significativas na estrutura, performance e manutenibilidade do código.
+
+As principais alterações incluem:
+
+- Arquitetura Baseada em Componentes: O código foi refatorado em componentes reutilizáveis (como Header, Sidebar, Calendar, StatCard), localizados no diretório src/components. Isso elimina a duplicação de código e facilita a manutenção, permitindo que cada parte da interface seja gerenciada de forma isolada.
+
+![components](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-10-22%20at%2021.10.06.png?raw=true)
+
+- Roteamento e Navegação: A navegação entre telas foi completamente reformulada. Em vez de sobrepor elementos na mesma página, o projeto agora utiliza o App Router do Next.js. A estrutura de pastas dentro de src/app (ex: /pacientes, /receitas) define automaticamente as URLs da aplicação, criando uma navegação real, mais rápida e intuitiva. No Next.js, cada pasta dentro de app (como /pacientes ou /receitas) se torna uma nova página/URL, desde que contenha um arquivo page.js.
+
+![components](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-10-22%20at%2020.53.39.png?raw=true)
+
+- Gerenciamento de Estado: O gerenciamento de estado, que antes dependia de um objeto state global, agora é feito de forma granular dentro de cada componente usando hooks do React, como o useState. Isso permite que cada componente controle seu próprio estado (por exemplo, a data selecionada no calendário) de forma independente.
+![states](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-10-22%20at%2021.06.03.png?raw=true)
+
+- Manipulação de Eventos: A interatividade foi modernizada. Em vez de selecionar elementos manualmente com document.getElementById, os eventos são declarados diretamente no JSX (a sintaxe do React), tornando o código mais limpo e declarativo. Por exemplo: `<button onClick={handleClick}>Salvar</button>.`
+
+**4.** **Conclusão**
 
 Ao longo do desenvolvimento deste projeto, transformamos uma necessidade
 real — a organização da agenda de um consultório dermatológico — em uma
