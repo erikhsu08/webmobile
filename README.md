@@ -35,7 +35,7 @@ O desenvolvimento deste projeto tem um foco extensionista, ou seja, ele foi pens
 Para transformar o protótipo em uma aplicação web moderna e escalável, o sistema foi desenvolvido utilizando as seguintes tecnologias:
 
 - **React:** Biblioteca principal para a construção da interface de usuário em componentes.
-- **Next.js:** Framework React que fornece otimizações como Roteamento (App Router), renderização no servidor e uma estrutura de projeto organizada.
+- **Next.js:** Framework React que fornece otimizações como Roteamento, renderização no servidor e uma estrutura de projeto organizada.
 - **JavaScript :** Linguagem base para toda a lógica e interatividade.
 - **CSS3 (com CSS Modules):** Para estilização escopada e layout responsivo.
 
@@ -101,8 +101,25 @@ Era preciso "caçar" elementos no DOM manualmente usando `document.getElementByI
 **Agora (React/JSX):**
 Os eventos são declarados diretamente no elemento JSX, de forma limpa e declarativa. A lógica é vinculada diretamente ao componente, sem precisar de seletores de ID.
 
-
 ![modalCode](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-10-23%20at%2016.50.03.png?raw=true)
+
+### 2.5 Layout.js
+
+![lAYOUT](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-10-23%20at%2021.27.05.png?raw=true)
+
+Este é um dos arquivos mais importantes do App Router. O arquivo src/app/layout.js funciona como um "molde" (template) principal para toda a aplicação.
+
+É neste arquivo que vamos posicionar nossos componentes globais, como o Header e a Sidebar, para que eles apareçam em todas as páginas sem precisarmos importá-los em cada page.js.
+
+A propriedade children que ele recebe é o conteúdo dinâmico da página atual (por exemplo, o page.js de /pacientes ou /receitas).
+
+### 2.6 Componentes de Cliente ('use client')
+
+No Next.js App Router, todos os componentes são Componentes de Servidor (Server Components) por padrão. Isso significa que eles são renderizados no servidor, o que os torna muito rápidos de carregar, mas não interativos (eles não podem usar onClick, useState, etc.).
+
+Para adicionar interatividade, precisamos dizer ao React para tratar aquele componente como um Componente de Cliente (Client Component). Fazemos isso simplesmente adicionando a diretiva 'use client'; no topo do arquivo.
+
+![lAYOUT](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-10-23%20at%2021.30.07.png?raw=true)
 
 ### 3. Conclusão
 
