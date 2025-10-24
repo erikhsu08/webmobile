@@ -119,7 +119,7 @@ No Next.js App Router, todos os componentes são Componentes de Servidor (Server
 
 Para adicionar interatividade, precisamos dizer ao React para tratar aquele componente como um Componente de Cliente (Client Component). Fazemos isso simplesmente adicionando a diretiva 'use client'; no topo do arquivo.
 
-![lAYOUT](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-10-23%20at%2021.30.07.png?raw=true)
+![useClient](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-10-23%20at%2021.30.07.png?raw=true)
 
 ### 3. Conclusão
 
