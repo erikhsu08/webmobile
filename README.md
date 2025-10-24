@@ -67,13 +67,13 @@ Isso elimina a duplicação, facilita a manutenção e permite que cada parte da
 
 Nossos principais componentes incluem:
 - `Header`
-  ![header](https://github.com/erikhsu08/webmobile/blob/main/assets/pxpubazh.png.png?raw=true)
+  ![header](https://github.com/erikhsu08/webmobile/blob/main/assets/pxpubazh.png?raw=true)
 - `Sidebar`
-  ![calendar](https://github.com/erikhsu08/webmobile/blob/main/assets/nifb1put.png.png?raw=true)
+  ![sidebar](https://github.com/erikhsu08/webmobile/blob/main/assets/nifb1put.png?raw=true)
 - `Calendar`
-  ![calendar](https://github.com/erikhsu08/webmobile/blob/main/assets/ofnsdmz2.png.png?raw=true)
+  ![calendar](https://github.com/erikhsu08/webmobile/blob/main/assets/ofnsdmz2.png?raw=true)
 - `StatCard`
-  ![StatCard](https://github.com/erikhsu08/webmobile/blob/main/assets/py1zkayq.png.png?raw=true)
+  ![StatCard](https://github.com/erikhsu08/webmobile/blob/main/assets/py1zkayq.png?raw=true)
 - `Modal`
   ![modal](https://github.com/erikhsu08/webmobile/blob/main/assets/vkj31jqk.png?raw=true)
 
