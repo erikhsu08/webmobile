@@ -67,13 +67,9 @@ Isso elimina a duplicação, facilita a manutenção e permite que cada parte da
 
 Nossos principais componentes incluem:
 - `Header`
-  assets/pxpubazh.png
 - `Sidebar`
-  assets/nifb1put.png
 - `Calendar`
-  assets/ofnsdmz2.png
 - `StatCard`
-  assets/py1zkayq.png
 - `Modal`
   ![modal](https://github.com/erikhsu08/webmobile/blob/main/assets/vkj31jqk.png?raw=true)
 
