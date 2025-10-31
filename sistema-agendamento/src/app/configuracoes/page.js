@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import styles from './configuracoes.module.css';
 
 export default function ConfiguracoesPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function ConfiguracoesPage() {
             <h1 className="page-title">Configurações</h1>
           </header>
 
-          <section className="settings-content">
+          <section className={styles.settingsContent}>
             <h2>Configurações</h2>
             <p style={{ marginTop: '1rem', color: '#64748b' }}>
               Configurações do sistema em desenvolvimento.

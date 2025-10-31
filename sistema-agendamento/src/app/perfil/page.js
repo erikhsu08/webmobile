@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import styles from './perfil.module.css';
 
 export default function PerfilPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function PerfilPage() {
             <h1 className="page-title">Perfil</h1>
           </header>
 
-          <section className="profile-content">
+          <section className={styles.profileContent}>
             <h2>Perfil</h2>
             <p style={{ marginTop: '1rem' }}>
               <strong>Nome:</strong> Ana Silva

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Modal from '../Modal/Modal';
+import styles from './Calendar.module.css';
 
 export default function Calendar({ appointments, setAppointments }) {
   const [currentView, setCurrentView] = useState('week');
@@ -130,12 +131,12 @@ export default function Calendar({ appointments, setAppointments }) {
     }
 
     return (
-      <section className="calendar-grid">
-        <span className="calendar-time"></span>
+      <section className={styles.calendarGrid}>
+        <span className={styles.calendarTime}></span>
         {days.map((day, idx) => {
           const formatted = formatDate(day);
           return (
-            <header key={idx} className="calendar-day-header">
+            <header key={idx} className={styles.calendarDayHeader}>
               {formatted.shortDay} {formatted.dayNumber}
             </header>
           );
@@ -144,7 +145,7 @@ export default function Calendar({ appointments, setAppointments }) {
         {Array.from({ length: 9 }, (_, hourIdx) => {
           const hour = hourIdx + 9;
           return [
-            <span key={`time-${hour}`} className="calendar-time">
+            <span key={`time-${hour}`} className={styles.calendarTime}>
               {hour.toString().padStart(2, '0')}
             </span>,
             ...days.map((day, dayIdx) => {
@@ -153,11 +154,11 @@ export default function Calendar({ appointments, setAppointments }) {
               });
               
               return (
-                <section key={`cell-${hour}-${dayIdx}`} className="calendar-cell">
+                <section key={`cell-${hour}-${dayIdx}`} className={styles.calendarCell}>
                   {dayAppointments.map(apt => (
                     <article 
                       key={apt.id}
-                      className={`appointment ${apt.status}`}
+                      className={`${styles.appointment} ${styles[apt.status]}`}
                       onClick={() => handleAppointmentClick(apt)}
                     >
                       {formatTime(apt.date)}<br />{apt.patient}
@@ -183,7 +184,7 @@ export default function Calendar({ appointments, setAppointments }) {
     // Headers
     dayNames.forEach(name => {
       cells.push(
-        <header key={`header-${name}`} className="calendar-day-header">
+        <header key={`header-${name}`} className={styles.calendarDayHeader}>
           {name}
         </header>
       );
@@ -193,8 +194,8 @@ export default function Calendar({ appointments, setAppointments }) {
     const prevMonthDays = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
     for (let i = startDay - 1; i >= 0; i--) {
       cells.push(
-        <section key={`prev-${i}`} className="month-day other-month">
-          <span className="month-day-number">{prevMonthDays - i}</span>
+        <section key={`prev-${i}`} className={`${styles.monthDay} ${styles.otherMonth}`}>
+          <span className={styles.monthDayNumber}>{prevMonthDays - i}</span>
         </section>
       );
     }
@@ -205,12 +206,12 @@ export default function Calendar({ appointments, setAppointments }) {
       const dayAppointments = appointments.filter(a => isSameDay(a.date, currentDay));
       
       cells.push(
-        <section key={`day-${day}`} className="month-day">
-          <span className="month-day-number">{day}</span>
+        <section key={`day-${day}`} className={styles.monthDay}>
+          <span className={styles.monthDayNumber}>{day}</span>
           {dayAppointments.map(apt => (
             <article 
               key={apt.id}
-              className={`appointment ${apt.status}`}
+              className={`${styles.appointment} ${styles[apt.status]}`}
               onClick={() => handleAppointmentClick(apt)}
             >
               {formatTime(apt.date)} {apt.patient}
@@ -224,34 +225,34 @@ export default function Calendar({ appointments, setAppointments }) {
     const remainingCells = 42 - (startDay + daysInMonth);
     for (let i = 1; i <= remainingCells; i++) {
       cells.push(
-        <section key={`next-${i}`} className="month-day other-month">
-          <span className="month-day-number">{i}</span>
+        <section key={`next-${i}`} className={`${styles.monthDay} ${styles.otherMonth}`}>
+          <span className={styles.monthDayNumber}>{i}</span>
         </section>
       );
     }
 
-    return <section className="month-grid">{cells}</section>;
+    return <section className={styles.monthGrid}>{cells}</section>;
   };
 
   const renderDayView = () => {
     const hours = Array.from({ length: 11 }, (_, i) => i + 8);
     
     return (
-      <section className="day-view">
+      <section className={styles.dayView}>
         {hours.map(hour => {
           const hourAppointments = appointments.filter(a => {
             return isSameDay(a.date, currentDate) && a.date.getHours() === hour;
           });
           
           return [
-            <section key={`time-${hour}`} className="day-time-slot">
+            <section key={`time-${hour}`} className={styles.dayTimeSlot}>
               {hour}:00
             </section>,
-            <section key={`content-${hour}`} className="day-content-slot">
+            <section key={`content-${hour}`} className={styles.dayContentSlot}>
               {hourAppointments.map(apt => (
                 <article 
                   key={apt.id}
-                  className={`appointment ${apt.status}`}
+                  className={`${styles.appointment} ${styles[apt.status]}`}
                   onClick={() => handleAppointmentClick(apt)}
                 >
                   {formatTime(apt.date)} - {apt.patient}<br />
@@ -271,7 +272,7 @@ export default function Calendar({ appointments, setAppointments }) {
                     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
     
     return (
-      <section className="year-grid">
+      <section className={styles.yearGrid}>
         {months.map((month, index) => {
           const firstDay = new Date(year, index, 1);
           const daysInMonth = getDaysInMonth(firstDay);
@@ -283,13 +284,13 @@ export default function Calendar({ appointments, setAppointments }) {
           // Headers
           dayNames.forEach((d, i) => {
             miniDays.push(
-              <span key={`mini-header-${index}-${i}`} className="mini-day">{d}</span>
+              <span key={`mini-header-${index}-${i}`} className={styles.miniDay}>{d}</span>
             );
           });
           
           // Espaços vazios
           for (let i = 0; i < startDay; i++) {
-            miniDays.push(<span key={`mini-empty-${index}-${i}`} className="mini-day"></span>);
+            miniDays.push(<span key={`mini-empty-${index}-${i}`} className={styles.miniDay}></span>);
           }
           
           // Dias do mês
@@ -299,7 +300,7 @@ export default function Calendar({ appointments, setAppointments }) {
             miniDays.push(
               <span 
                 key={`mini-day-${index}-${day}`}
-                className={`mini-day ${hasAppointment ? 'has-appointment' : ''}`}
+                className={`${styles.miniDay} ${hasAppointment ? styles.hasAppointment : ''}`}
               >
                 {day}
               </span>
@@ -307,9 +308,9 @@ export default function Calendar({ appointments, setAppointments }) {
           }
           
           return (
-            <article key={index} className="month-card">
+            <article key={index} className={styles.monthCard}>
               <h3>{month}</h3>
-              <section className="mini-calendar">{miniDays}</section>
+              <section className={styles.miniCalendar}>{miniDays}</section>
             </article>
           );
         })}
@@ -350,46 +351,46 @@ export default function Calendar({ appointments, setAppointments }) {
 
   return (
     <>
-      <section className="calendar-container">
-        <header className="calendar-header">
-          <nav className="calendar-nav">
+      <section className={styles.calendarContainer}>
+        <header className={styles.calendarHeader}>
+          <nav className={styles.calendarNav}>
             <button 
-              className="nav-btn" 
+              className={styles.navBtn}
               onClick={() => navigateCalendar('prev')}
               aria-label="Período anterior"
             >
               ‹
             </button>
-            <h2 className="calendar-title">{getCalendarTitle()}</h2>
+            <h2 className={styles.calendarTitle}>{getCalendarTitle()}</h2>
             <button 
-              className="nav-btn" 
+              className={styles.navBtn}
               onClick={() => navigateCalendar('next')}
               aria-label="Próximo período"
             >
               ›
             </button>
           </nav>
-          <nav className="view-switcher">
+          <nav className={styles.viewSwitcher}>
             <button 
-              className={`view-btn ${currentView === 'year' ? 'active' : ''}`}
+              className={`${styles.viewBtn} ${currentView === 'year' ? styles.active : ''}`}
               onClick={() => setCurrentView('year')}
             >
               Ano
             </button>
             <button 
-              className={`view-btn ${currentView === 'week' ? 'active' : ''}`}
+              className={`${styles.viewBtn} ${currentView === 'week' ? styles.active : ''}`}
               onClick={() => setCurrentView('week')}
             >
               Semana
             </button>
             <button 
-              className={`view-btn ${currentView === 'month' ? 'active' : ''}`}
+              className={`${styles.viewBtn} ${currentView === 'month' ? styles.active : ''}`}
               onClick={() => setCurrentView('month')}
             >
               Mês
             </button>
             <button 
-              className={`view-btn ${currentView === 'day' ? 'active' : ''}`}
+              className={`${styles.viewBtn} ${currentView === 'day' ? styles.active : ''}`}
               onClick={() => setCurrentView('day')}
             >
               Dia
@@ -397,7 +398,7 @@ export default function Calendar({ appointments, setAppointments }) {
           </nav>
         </header>
 
-        <section className="calendar-content">
+        <section className={styles.calendarContent}>
           {currentView === 'week' && renderWeekView()}
           {currentView === 'month' && renderMonthView()}
           {currentView === 'day' && renderDayView()}

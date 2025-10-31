@@ -1,0 +1,69 @@
+/* components/StatCard/StatCard.module.css */
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.statCard {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.2s;
+}
+
+.statCard:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.statIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.5rem;
+}
+
+.iconImg {
+    width: 24px;
+    height: 24px;
+}
+
+.statContent h3 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+}
+
+.statContent p {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.iconToday { background: rgba(0, 128, 255, 0.21); }
+.iconWeek { background: rgba(130, 128, 255, 0.21); }
+.iconConfirmed { background: rgba(74, 217, 145, 0.21); }
+.iconPending { background: rgba(254, 197, 61, 0.21); }
+
+@media (max-width: 1024px) {
+    .statsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+}

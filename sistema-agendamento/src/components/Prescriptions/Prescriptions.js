@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import styles from './Prescriptions.module.css';
 
 export default function Prescriptions() {
   const [selectedPatientId, setSelectedPatientId] = useState(null);
@@ -45,7 +46,7 @@ export default function Prescriptions() {
   const selectedPatient = patients.find(p => p.id === selectedPatientId);
 
   const getAvatarClass = (index) => {
-    const classes = ['avatar-1', 'avatar-2', 'avatar-3'];
+    const classes = ['avatar1', 'avatar2', 'avatar3'];
     return classes[index % 3];
   };
 
@@ -70,16 +71,16 @@ export default function Prescriptions() {
   };
 
   return (
-    <section className="prescriptions-layout">
+    <section className={styles.prescriptionsLayout}>
       {/* Lista de Pacientes */}
-      <aside className="patients-sidebar">
-        <section className="patients-list">
-          <header className="patients-header">
-            <form className="search-box" onSubmit={(e) => e.preventDefault()}>
-              <span className="search-icon">🔍</span>
+      <aside className={styles.patientsSidebar}>
+        <section className={styles.patientsList}>
+          <header className={styles.patientsHeader}>
+            <form className={styles.searchBox} onSubmit={(e) => e.preventDefault()}>
+              <span className={styles.searchIcon}>🔍</span>
               <input 
                 type="text" 
-                className="search-input" 
+                className={styles.searchInput}
                 placeholder="Buscar pacientes"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -91,11 +92,11 @@ export default function Prescriptions() {
             {filteredPatients.map((patient, index) => (
               <article 
                 key={patient.id}
-                className={`patient-item ${selectedPatientId === patient.id ? 'active' : ''}`}
+                className={`${styles.patientItem} ${selectedPatientId === patient.id ? styles.active : ''}`}
                 onClick={() => setSelectedPatientId(patient.id)}
               >
-                <span className={`patient-avatar ${getAvatarClass(index)}`}>👤</span>
-                <section className="patient-info">
+                <span className={`${styles.patientAvatar} ${styles[getAvatarClass(index)]}`}>👤</span>
+                <section className={styles.patientInfo}>
                   <h4>{patient.name}</h4>
                   <p>{patient.phone}</p>
                 </section>
@@ -106,19 +107,19 @@ export default function Prescriptions() {
       </aside>
 
       {/* Painel do Paciente */}
-      <main className="patient-main">
-        <article className="patient-panel">
+      <main className={styles.patientMain}>
+        <article className={styles.patientPanel}>
           {selectedPatient ? (
             <>
-              <header className="patient-header">
-                <section className="patient-details">
+              <header className={styles.patientHeader}>
+                <section className={styles.patientDetails}>
                   <h2>{selectedPatient.name}</h2>
-                  <address className="contact-info">
-                    <span className="contact-item">
+                  <address className={styles.contactInfo}>
+                    <span className={styles.contactItem}>
                       <span>📞</span>
                       <span>{selectedPatient.phone}</span>
                     </span>
-                    <span className="contact-item">
+                    <span className={styles.contactItem}>
                       <span>✉️</span>
                       <span>{selectedPatient.email}</span>
                     </span>
@@ -126,9 +127,9 @@ export default function Prescriptions() {
                 </section>
               </header>
 
-              <section className="treatment-section">
-                <h3 className="section-title">Informações do Paciente</h3>
-                <p className="treatment-info">
+              <section className={styles.treatmentSection}>
+                <h3 className={styles.sectionTitle}>Informações do Paciente</h3>
+                <p className={styles.treatmentInfo}>
                   {(() => {
                     const patientAppointments = getPatientAppointments(selectedPatient.name);
                     const lastAppointment = patientAppointments[patientAppointments.length - 1];
@@ -141,23 +142,23 @@ export default function Prescriptions() {
                 </p>
               </section>
 
-              <section className="treatment-section">
-                <h3 className="section-title">Histórico de Receituários</h3>
-                <section className="documents-grid">
-                  <article className="document-card">
-                    <span className="doc-icon">PDF</span>
-                    <h4 className="doc-name">Receituario_2024</h4>
+              <section className={styles.treatmentSection}>
+                <h3 className={styles.sectionTitle}>Histórico de Receituários</h3>
+                <section className={styles.documentsGrid}>
+                  <article className={styles.documentCard}>
+                    <span className={styles.docIcon}>PDF</span>
+                    <h4 className={styles.docName}>Receituario_2024</h4>
                   </article>
-                  <article className="document-card">
-                    <span className="doc-icon">PDF</span>
-                    <h4 className="doc-name">Atestado_exemplo</h4>
+                  <article className={styles.documentCard}>
+                    <span className={styles.docIcon}>PDF</span>
+                    <h4 className={styles.docName}>Atestado_exemplo</h4>
                   </article>
                 </section>
               </section>
 
-              <section className="treatment-section">
-                <h3 className="section-title">Criar novo Receituário / Atestado</h3>
-                <nav className="action-buttons form-nav">
+              <section className={styles.treatmentSection}>
+                <h3 className={styles.sectionTitle}>Criar novo Receituário / Atestado</h3>
+                <nav className={`${styles.actionButtons} ${styles.formNav}`}>
                   <button 
                     className="btn-success"
                     onClick={() => setFormType('receituario')}
@@ -173,84 +174,84 @@ export default function Prescriptions() {
                 </nav>
 
                 {formType === 'receituario' ? (
-                  <form className="prescription-form" onSubmit={handleGeneratePrescription}>
-                    <fieldset className="form-section">
-                      <label className="form-group">
+                  <form className={styles.prescriptionForm} onSubmit={handleGeneratePrescription}>
+                    <fieldset className={styles.formSection}>
+                      <label className={styles.formGroup}>
                         <span>Medicamento</span>
                         <input 
                           type="text" 
-                          className="form-input" 
+                          className={styles.formInput}
                           placeholder="Buscar por um medicamento"
                         />
                       </label>
-                      <label className="form-group">
+                      <label className={styles.formGroup}>
                         <span>Observações</span>
                         <input 
                           type="text" 
-                          className="form-input" 
+                          className={styles.formInput}
                           placeholder="Adicionar observações"
                         />
                       </label>
                     </fieldset>
 
-                    <fieldset className="form-section">
-                      <label className="form-group">
+                    <fieldset className={styles.formSection}>
+                      <label className={styles.formGroup}>
                         <span>Dosagem</span>
                         <input 
                           type="text" 
-                          className="form-input" 
+                          className={styles.formInput}
                           placeholder="Exemplo: 20mg"
                         />
                       </label>
-                      <label className="form-group">
+                      <label className={styles.formGroup}>
                         <span>Frequência</span>
                         <input 
                           type="text" 
-                          className="form-input" 
+                          className={styles.formInput}
                           placeholder="Exemplo: 2 vezes ao dia"
                         />
                       </label>
                     </fieldset>
 
-                    <footer className="action-buttons">
+                    <footer className={styles.actionButtons}>
                       <button type="submit" className="btn-primary">
                         Gerar Receituário
                       </button>
                     </footer>
                   </form>
                 ) : (
-                  <form className="certificate-form" onSubmit={handleGenerateCertificate}>
-                    <fieldset className="form-section">
-                      <label className="form-group">
+                  <form className={styles.certificateForm} onSubmit={handleGenerateCertificate}>
+                    <fieldset className={styles.formSection}>
+                      <label className={styles.formGroup}>
                         <span>Motivo do Atestado</span>
                         <textarea 
-                          className="form-input" 
+                          className={styles.formInput}
                           rows="3" 
                           placeholder="Descreva o motivo do atestado médico"
                         ></textarea>
                       </label>
-                      <label className="form-group">
+                      <label className={styles.formGroup}>
                         <span>Período de Afastamento</span>
                         <input 
                           type="text" 
-                          className="form-input" 
+                          className={styles.formInput}
                           placeholder="Exemplo: 3 dias"
                         />
                       </label>
                     </fieldset>
 
-                    <fieldset className="form-section">
-                      <label className="form-group">
+                    <fieldset className={styles.formSection}>
+                      <label className={styles.formGroup}>
                         <span>Data de Início</span>
-                        <input type="date" className="form-input" />
+                        <input type="date" className={styles.formInput} />
                       </label>
-                      <label className="form-group">
+                      <label className={styles.formGroup}>
                         <span>Data de Fim</span>
-                        <input type="date" className="form-input" />
+                        <input type="date" className={styles.formInput} />
                       </label>
                     </fieldset>
 
-                    <footer className="action-buttons">
+                    <footer className={styles.actionButtons}>
                       <button type="submit" className="btn-success">
                         Gerar Atestado
                       </button>
@@ -260,8 +261,8 @@ export default function Prescriptions() {
               </section>
             </>
           ) : (
-            <section className="treatment-section">
-              <p className="treatment-info">Selecione um paciente para ver as informações</p>
+            <section className={styles.treatmentSection}>
+              <p className={styles.treatmentInfo}>Selecione um paciente para ver as informações</p>
             </section>
           )}
         </article>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import styles from './ajuda.module.css';
 
 export default function AjudaPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function AjudaPage() {
             <h1 className="page-title">Ajuda</h1>
           </header>
 
-          <section className="help-content">
+          <section className={styles.helpContent}>
             <h2>Ajuda</h2>
             
             <h3 style={{ marginTop: '1.5rem', color: '#1e293b' }}>

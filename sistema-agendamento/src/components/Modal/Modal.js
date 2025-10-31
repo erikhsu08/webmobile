@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import styles from './Modal.module.css';
 
 export default function Modal({ isOpen, onClose, title, children, footer }) {
   useEffect(() => {
@@ -24,25 +25,25 @@ export default function Modal({ isOpen, onClose, title, children, footer }) {
 
   return (
     <aside 
-      className={`modal ${isOpen ? 'show' : ''}`}
+      className={`${styles.modal} ${isOpen ? styles.show : ''}`}
       onClick={handleBackdropClick}
     >
-      <article className="modal-content">
-        <header className="modal-header">
+      <article className={styles.modalContent}>
+        <header className={styles.modalHeader}>
           <h2>{title}</h2>
           <button 
-            className="modal-close" 
+            className={styles.modalClose}
             onClick={onClose}
             aria-label="Fechar modal"
           >
             ×
           </button>
         </header>
-        <section className="modal-body">
+        <section className={styles.modalBody}>
           {children}
         </section>
         {footer && (
-          <footer className="modal-footer">
+          <footer className={styles.modalFooter}>
             {footer}
           </footer>
         )}

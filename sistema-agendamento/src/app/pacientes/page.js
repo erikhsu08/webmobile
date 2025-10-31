@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Modal from '../../components/Modal/Modal';
+import styles from './pacientes.module.css';
 
 export default function PacientesPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -50,7 +51,7 @@ export default function PacientesPage() {
             </button>
           </header>
 
-          <section className="patients-list">
+          <section className={styles.patientsList}>
             <h2>Lista de Pacientes</h2>
             <table style={{ width: '100%', marginTop: '1rem', borderCollapse: 'collapse' }}>
               <thead>

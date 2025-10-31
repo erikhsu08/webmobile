@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
+import styles from './Sidebar.module.css';
 import Image from 'next/image';
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -22,32 +23,30 @@ export default function Sidebar({ isOpen, onClose }) {
 
   const handleItemClick = (href) => {
     router.push(href);
-    if (window.innerWidth <= 1024) {
-      onClose();
-    }
+    if (window.innerWidth <= 1024) onClose();
   };
 
   const isActive = (href) => pathname === href;
-  
-  const getIconSuffix = (href) => {
-    return isActive(href) ? 'selected' : 'unselected';
-  };
+
+  const getIconSuffix = (href) => (isActive(href) ? 'selected' : 'unselected');
 
   return (
-    <nav className={`sidebar ${isOpen ? 'show' : ''}`}>
-      <section className="sidebar-section">
-        <h3 className="sidebar-title">Menu</h3>
+    <nav className={`${styles.sidebar} ${isOpen ? styles.show : ''}`}>
+      <section className={styles.sidebarSection}>
+        <h3 className={styles.sidebarTitle}>Menu</h3>
         {menuItems.map((item) => (
           <a
             key={item.href}
             href={item.href}
-            className={`sidebar-item ${isActive(item.href) ? 'active' : ''}`}
+            className={`${styles.sidebarItem} ${
+              isActive(item.href) ? styles.active : ''
+            }`}
             onClick={(e) => {
               e.preventDefault();
               handleItemClick(item.href);
             }}
           >
-            <span className="sidebar-icon">
+            <span className={styles.sidebarIcon}>
               <Image
                 src={`/assets/${item.icon}_${getIconSuffix(item.href)}.png`}
                 alt={item.label}
@@ -61,19 +60,21 @@ export default function Sidebar({ isOpen, onClose }) {
         ))}
       </section>
 
-      <section className="sidebar-section">
-        <h3 className="sidebar-title">Outros</h3>
+      <section className={styles.sidebarSection}>
+        <h3 className={styles.sidebarTitle}>Outros</h3>
         {otherItems.map((item) => (
           <a
             key={item.href}
             href={item.href}
-            className={`sidebar-item ${isActive(item.href) ? 'active' : ''}`}
+            className={`${styles.sidebarItem} ${
+              isActive(item.href) ? styles.active : ''
+            }`}
             onClick={(e) => {
               e.preventDefault();
               handleItemClick(item.href);
             }}
           >
-            <span className="sidebar-icon">
+            <span className={styles.sidebarIcon}>
               <Image
                 src={`/assets/${item.icon}_${getIconSuffix(item.href)}.png`}
                 alt={item.label}

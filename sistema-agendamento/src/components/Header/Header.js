@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import styles from './Header.module.css';
 
 export default function Header({ onMenuClick }) {
   const router = useRouter();
@@ -10,20 +11,20 @@ export default function Header({ onMenuClick }) {
   };
 
   return (
-    <header className="header">
-      <section className="logo">
+    <header className={styles.header}>
+      <section className={styles.logo}>
         <button 
-          className="mobile-menu" 
+          className={styles.mobileMenu}
           onClick={onMenuClick}
           aria-label="Menu mobile"
         >
           ☰
         </button>
-        <span className="logo-icon"></span>
+        <span className={styles.logoIcon}></span>
         Sistema de Agendamento
       </section>
-      <section className="user-info" onClick={handleUserClick}>
-        <span className="user-avatar">A</span>
+      <section className={styles.userInfo} onClick={handleUserClick}>
+        <span className={styles.userAvatar}>A</span>
         Ana Silva
       </section>
     </header>

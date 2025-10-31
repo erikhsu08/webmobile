@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Prescriptions from '../../components/Prescriptions/Prescriptions';
+import styles from './receitas.module.css';
 
 export default function ReceitasPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);

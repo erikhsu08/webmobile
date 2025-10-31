@@ -6,6 +6,7 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import StatCard from '../components/StatCard/StatCard';
 import Calendar from '../components/Calendar/Calendar';
 import Modal from '../components/Modal/Modal';
+import styles from '../components/StatCard/StatCard.module.css';
 
 export default function HomePage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -106,10 +107,10 @@ export default function HomePage() {
   const pendingCount = appointments.filter(a => a.status === 'pending').length;
 
   const stats = [
-    { icon: '/assets/ic_individuo.png', iconClass: 'icon-today', value: todayCount, label: 'Hoje' },
-    { icon: '/assets/ic_grupo.png', iconClass: 'icon-week', value: weekCount, label: 'Esta semana' },
-    { icon: '/assets/ic_check.png', iconClass: 'icon-confirmed', value: confirmedCount, label: 'Confirmadas' },
-    { icon: '/assets/ic_pendente.png', iconClass: 'icon-pending', value: pendingCount, label: 'Pendentes' }
+    { icon: '/assets/ic_individuo.png', iconClass: styles.iconToday, value: todayCount, label: 'Hoje' },
+    { icon: '/assets/ic_grupo.png', iconClass: styles.iconWeek, value: weekCount, label: 'Esta semana' },
+    { icon: '/assets/ic_check.png', iconClass: styles.iconConfirmed, value: confirmedCount, label: 'Confirmadas' },
+    { icon: '/assets/ic_pendente.png', iconClass: styles.iconPending, value: pendingCount, label: 'Pendentes' }
   ];
 
   return (
@@ -122,7 +123,7 @@ export default function HomePage() {
             <h1 className="page-title">Agendamentos</h1>
           </header>
 
-          <section className="stats-grid">
+          <section className={styles.statsGrid}>
             {stats.map((stat, index) => (
               <StatCard key={index} {...stat} />
             ))}

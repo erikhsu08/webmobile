@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import styles from './relatorios.module.css';
 
 export default function RelatoriosPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -82,7 +83,7 @@ export default function RelatoriosPage() {
             <h1 className="page-title">Relatórios</h1>
           </header>
 
-          <section className="reports-content">
+          <section className={styles.reportsContent}>
             <h2>Relatórios</h2>
             <p style={{ marginTop: '1rem', color: '#64748b' }}>
               Total de consultas: {totalAppointments}
