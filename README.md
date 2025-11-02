@@ -59,6 +59,28 @@ A navegação entre telas foi completamente reformulada. O projeto utiliza o **A
 
 ![Estrutura de Rotas no App Router](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-10-22%20at%2020.53.39.png?raw=true)
 
+### 2.1.1 Roteamento dinamico 
+
+Enquanto a navegação principal (via Sidebar) utiliza o Roteamento Estático (/pacientes, /agendamentos), a tela de Receitas e Atestados, exige o Roteamento Dinâmico.
+
+O Roteamento Dinâmico é fundamental para criar URLs dedicadas a um recurso específico, permitindo que o estado da aplicação seja persistido na URL.
+
+**Aplicação na Página de Receitas:**
+
+A página de Receitas e Atestados precisa exibir o histórico e as informações de documentação de um paciente por vez. Antes, isso era feito com um estado local (useState), mas agora é baseado na URL, tornando-a compartilhável.
+
+**1. Estrutura de Rotas:** 
+- O Next.js permite criar rotas dinâmicas aninhando pastas entre colchetes ([]).
+
+- src/app/receitas/page.js → Rota estática base (/receitas).
+
+- src/app/receitas/[patientId]/page.js → Rota dinâmica que recebe o ID do paciente.
+
+**2. Captura do Parâmetro:** 
+- Dentro da rota dinâmica ([patientId]/page.js), usamos o Hook useParams para capturar o ID presente na URL.
+
+
+
 ### 2.2 Arquitetura Baseada em Componentes
 
 Toda a interface foi refatorada em **componentes reutilizáveis**, localizados no diretório `src/components`. Em vez de duplicar código HTML (como o cabeçalho ou a barra lateral em várias páginas), nós criamos um componente e o importamos onde for necessário.
