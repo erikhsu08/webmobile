@@ -1,13 +1,18 @@
+// app/receitas/[patientId]/page.js
 'use client';
 
 import { useState } from 'react';
-import Header from '../../components/Header/Header';
-import Sidebar from '../../components/Sidebar/Sidebar';
-import Prescriptions from '../../components/Prescriptions/Prescriptions';
-import styles from './receitas.module.css';
+import Header from '../../../components/Header/Header';
+import Sidebar from '../../../components/Sidebar/Sidebar';
+import Prescriptions from '../../../components/Prescriptions/Prescriptions';
 
-export default function ReceitasPage() {
+import { useParams } from 'next/navigation'; 
+
+export default function PatientPrescriptionsPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+ 
+  const params = useParams();
+  const { patientId } = params; 
 
   const handleMenuClick = () => {
     setSidebarOpen(!sidebarOpen);
@@ -26,8 +31,8 @@ export default function ReceitasPage() {
           <header className="page-header">
             <h1 className="page-title">Receitas e Atestados</h1>
           </header>
-
-          <Prescriptions initialPatientId={null} />
+        
+          <Prescriptions initialPatientId={patientId} /> 
         </article>
       </main>
     </>

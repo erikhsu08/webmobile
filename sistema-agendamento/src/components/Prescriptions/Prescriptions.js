@@ -1,10 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation'; 
 import styles from './Prescriptions.module.css';
 
-export default function Prescriptions() {
-  const [selectedPatientId, setSelectedPatientId] = useState(null);
+
+export default function Prescriptions({ initialPatientId }) {
+  const router = useRouter(); 
+  const selectedPatientId = initialPatientId ? parseInt(initialPatientId) : null;
+  
   const [searchTerm, setSearchTerm] = useState('');
   const [formType, setFormType] = useState('receituario');
 
@@ -43,7 +47,12 @@ export default function Prescriptions() {
     p.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const selectedPatient = patients.find(p => p.id === selectedPatientId);
+  const selectedPatient = patients.find(p => p.id === selectedPatientId); 
+  
+  const handlePatientClick = (patientId) => {
+    // Rota dinâmica para /receitas/[patientId]
+    router.push(`/receitas/${patientId}`);
+  };
 
   const getAvatarClass = (index) => {
     const classes = ['avatar1', 'avatar2', 'avatar3'];
@@ -93,7 +102,7 @@ export default function Prescriptions() {
               <article 
                 key={patient.id}
                 className={`${styles.patientItem} ${selectedPatientId === patient.id ? styles.active : ''}`}
-                onClick={() => setSelectedPatientId(patient.id)}
+                onClick={() => handlePatientClick(patient.id)}
               >
                 <span className={`${styles.patientAvatar} ${styles[getAvatarClass(index)]}`}>👤</span>
                 <section className={styles.patientInfo}>
@@ -106,7 +115,7 @@ export default function Prescriptions() {
         </section>
       </aside>
 
-      {/* Painel do Paciente */}
+     
       <main className={styles.patientMain}>
         <article className={styles.patientPanel}>
           {selectedPatient ? (
