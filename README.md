@@ -63,6 +63,8 @@ A navegação entre telas foi completamente reformulada. O projeto utiliza o **A
 
 Enquanto a navegação principal (via Sidebar) utiliza o Roteamento Estático (/pacientes, /agendamentos), a tela de Receitas e Atestados, exige o Roteamento Dinâmico.
 
+![telaReceitas](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-11-02%20at%2016.49.32.png?raw=true)
+
 O Roteamento Dinâmico é fundamental para criar URLs dedicadas a um recurso específico, permitindo que o estado da aplicação seja persistido na URL.
 
 **Aplicação na Página de Receitas:**
@@ -78,6 +80,7 @@ A página de Receitas e Atestados precisa exibir o histórico e as informações
 
 **2. Captura do Parâmetro:** 
 - Dentro da rota dinâmica ([patientId]/page.js), usamos o Hook useParams para capturar o ID presente na URL.
+ ![codigoRotaDinamica](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-11-02%20at%2017.31.15.png?raw=true)
 
 
 
