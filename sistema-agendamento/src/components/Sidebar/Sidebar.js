@@ -9,16 +9,16 @@ export default function Sidebar({ isOpen, onClose }) {
   const router = useRouter();
 
   const menuItems = [
-    { href: '/', label: 'Agendamentos', icon: 'ic_agendamentos' },
-    { href: '/pacientes', label: 'Pacientes', icon: 'ic_paciente' },
-    { href: '/relatorios', label: 'Relatórios', icon: 'ic_relatorio' },
+    { href: '/', label: 'Agendamentos', icon: 'ic_agendamento' },
+    { href: '/pacientes', label: 'Pacientes', icon: 'ic_perfil' },
+    { href: '/relatorios', label: 'Relatórios', icon: 'ic_relatorios' },
     { href: '/receitas', label: 'Receitas e Atestados', icon: 'ic_receitas' },
   ];
 
   const otherItems = [
     { href: '/configuracoes', label: 'Configurações', icon: 'ic_config' },
-    { href: '/perfil', label: 'Perfil', icon: 'ic_paciente' },
-    { href: '/ajuda', label: 'Ajuda', icon: 'ic_info' },
+    { href: '/perfil', label: 'Perfil', icon: 'ic_perfil' },
+    { href: '/ajuda', label: 'Ajuda', icon: 'ic_ajuda' },
   ];
 
   const handleItemClick = (href) => {
@@ -48,7 +48,7 @@ export default function Sidebar({ isOpen, onClose }) {
           >
             <span className={styles.sidebarIcon}>
               <Image
-                src={`/assets/${item.icon}_${getIconSuffix(item.href)}.png`}
+                src={`/assets/svg/${item.icon}_${getIconSuffix(item.href)}.svg`}
                 alt={item.label}
                 width={24}
                 height={24}
@@ -76,7 +76,7 @@ export default function Sidebar({ isOpen, onClose }) {
           >
             <span className={styles.sidebarIcon}>
               <Image
-                src={`/assets/${item.icon}_${getIconSuffix(item.href)}.png`}
+                src={`/assets/svg/${item.icon}_${getIconSuffix(item.href)}.svg`}
                 alt={item.label}
                 width={24}
                 height={24}
