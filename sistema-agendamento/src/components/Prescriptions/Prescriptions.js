@@ -169,7 +169,7 @@ export default function Prescriptions({ initialPatientId }) {
                 <h3 className={styles.sectionTitle}>Criar novo Receituário / Atestado</h3>
                 <nav className={`${styles.actionButtons} ${styles.formNav}`}>
                   <button 
-                    className="btn-success"
+                    className="btn-primary"
                     onClick={() => setFormType('receituario')}
                   >
                     Receituário

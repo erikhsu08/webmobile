@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Modal from '../Modal/Modal';
 import styles from './Calendar.module.css';
 
-export default function Calendar({ appointments, setAppointments }) {
+export default function Calendar({ appointments, setAppointments, onDeleteAppointment }) {
   const [currentView, setCurrentView] = useState('week');
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedAppointment, setSelectedAppointment] = useState(null);
@@ -84,7 +84,14 @@ export default function Calendar({ appointments, setAppointments }) {
 
   const handleDeleteAppointment = () => {
     if (confirm('Deseja realmente cancelar esta consulta?')) {
-      setAppointments(appointments.filter(a => a.id !== selectedAppointment.id));
+      // CORREÇÃO: Chamar a função onDeleteAppointment que foi passada como prop
+      if (onDeleteAppointment) {
+        onDeleteAppointment(selectedAppointment.id);
+      } else {
+        // Fallback caso não tenha a função (não deveria acontecer)
+        setAppointments(appointments.filter(a => a.id !== selectedAppointment.id));
+      }
+      
       setShowDetailsModal(false);
       setSelectedAppointment(null);
     }
@@ -95,26 +102,56 @@ export default function Calendar({ appointments, setAppointments }) {
     setShowEditModal(true);
   };
 
-  const handleSaveEdit = (formData) => {
+  const handleSaveEdit = async (formData) => {
     const dateStr = formData.get('date');
     const timeStr = formData.get('time');
     const [year, month, day] = dateStr.split('-').map(Number);
     const [hours, minutes] = timeStr.split(':').map(Number);
 
-    const updatedAppointments = appointments.map(a => {
-      if (a.id === selectedAppointment.id) {
-        return {
-          ...a,
-          patient: formData.get('patient'),
-          date: new Date(year, month - 1, day, hours, minutes),
-          status: formData.get('status'),
-          notes: formData.get('notes') || ''
-        };
+    const updatedDate = new Date(year, month - 1, day, hours, minutes);
+
+    const updatedAppointment = {
+      ...selectedAppointment,
+      patient: formData.get('patient'),
+      date: updatedDate,
+      status: formData.get('status'),
+      notes: formData.get('notes') || ''
+    };
+
+    // Se for um evento do Google, atualizar lá também
+    if (selectedAppointment.googleEventId) {
+      try {
+        const response = await fetch('/api/calendar/update-event', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            eventId: selectedAppointment.googleEventId,
+            patient: updatedAppointment.patient,
+            date: updatedDate.toISOString(),
+            notes: updatedAppointment.notes
+          }),
+        });
+
+        if (response.ok) {
+          console.log('✅ Evento atualizado no Google Calendar!');
+        } else {
+          console.error('❌ Erro ao atualizar no Google Calendar');
+        }
+      } catch (error) {
+        console.error('❌ Erro ao atualizar no Google Calendar:', error);
       }
-      return a;
-    });
+    }
+
+    // Atualizar localmente
+    const updatedAppointments = appointments.map(a => 
+      a.id === selectedAppointment.id ? updatedAppointment : a
+    );
 
     setAppointments(updatedAppointments);
+    localStorage.setItem('appointments', JSON.stringify(updatedAppointments));
+    
     setShowEditModal(false);
     setSelectedAppointment(null);
   };

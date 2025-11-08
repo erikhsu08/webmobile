@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../components/Header/Header';
 import Sidebar from '../components/Sidebar/Sidebar';
 import StatCard from '../components/StatCard/StatCard';
@@ -11,50 +11,91 @@ import styles from '../components/StatCard/StatCard.module.css';
 export default function HomePage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showNewAppointmentModal, setShowNewAppointmentModal] = useState(false);
-  const [appointments, setAppointments] = useState([
-    {
-      id: 1,
-      patient: 'Paulo Carvalho',
-      date: new Date(2025, 9, 4, 9, 0),
-      status: 'pending',
-      notes: 'Consulta de rotina'
-    },
-    {
-      id: 2,
-      patient: 'Maria Silva',
-      date: new Date(2025, 9, 2, 10, 0),
-      status: 'confirmed',
-      notes: 'Retorno'
-    },
-    {
-      id: 3,
-      patient: 'Luciana Ferreira',
-      date: new Date(2025, 9, 3, 10, 0),
-      status: 'confirmed',
-      notes: 'Primeira consulta'
-    },
-    {
-      id: 4,
-      patient: 'João Santos',
-      date: new Date(2025, 9, 2, 11, 0),
-      status: 'confirmed',
-      notes: 'Acompanhamento'
-    },
-    {
-      id: 5,
-      patient: 'Ana Costa',
-      date: new Date(2025, 9, 2, 13, 30),
-      status: 'confirmed',
-      notes: 'Consulta inicial'
-    },
-    {
-      id: 6,
-      patient: 'Carlos Oliveira',
-      date: new Date(2025, 9, 3, 15, 0),
-      status: 'pending',
-      notes: 'Retorno pós-exame'
+  const [appointments, setAppointments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
+
+  // Função para sincronizar com Google Calendar
+  const syncWithGoogle = async () => {
+    setSyncing(true);
+    try {
+      const response = await fetch('/api/calendar/sync-events');
+      if (response.ok) {
+        const { events } = await response.json();
+        
+        // Buscar eventos deletados localmente
+        const deletedEvents = JSON.parse(localStorage.getItem('deletedGoogleEvents') || '[]');
+        
+        // Converter eventos do Google para o formato do sistema
+        const googleAppointments = events
+          .filter(event => {
+            // Filtrar apenas eventos de consulta
+            if (!event.summary || !event.summary.startsWith('Consulta - ')) {
+              return false;
+            }
+            // Ignorar eventos que foram deletados localmente
+            if (deletedEvents.includes(event.id)) {
+              return false;
+            }
+            return true;
+          })
+          .map(event => {
+            const patientName = event.summary.replace('Consulta - ', '');
+            const startDate = new Date(event.start.dateTime || event.start.date);
+            
+            return {
+              id: event.id, // Usar o ID do Google diretamente
+              patient: patientName,
+              date: startDate,
+              status: 'confirmed',
+              notes: event.description || '',
+              googleEventId: event.id,
+              source: 'google'
+            };
+          });
+
+        // Buscar agendamentos locais (que não estão no Google)
+        const localAppointments = JSON.parse(localStorage.getItem('appointments') || '[]')
+          .map(apt => ({
+            ...apt,
+            date: new Date(apt.date),
+            source: apt.source || 'local'
+          }))
+          .filter(apt => !apt.googleEventId); // Apenas agendamentos sem vínculo com Google
+
+        // Combinar: eventos do Google + agendamentos locais sem vínculo
+        const mergedAppointments = [...googleAppointments, ...localAppointments];
+        
+        setAppointments(mergedAppointments);
+        localStorage.setItem('appointments', JSON.stringify(mergedAppointments));
+        
+        console.log('✅ Sincronizado:', mergedAppointments.length, 'eventos');
+      }
+    } catch (error) {
+      console.error('❌ Erro ao sincronizar:', error);
+    } finally {
+      setSyncing(false);
     }
-  ]);
+  };
+
+  // Carregar agendamentos ao iniciar
+  useEffect(() => {
+    const initializeAppointments = async () => {
+      await syncWithGoogle();
+      setLoading(false);
+    };
+
+    initializeAppointments();
+  }, []);
+
+  // Sincronizar periodicamente (a cada 5 minutos)
+  useEffect(() => {
+    if (loading) return;
+
+    const interval = setInterval(syncWithGoogle, 5 * 60 * 1000);
+    
+    return () => clearInterval(interval);
+  }, [loading]);
 
   const handleMenuClick = () => {
     setSidebarOpen(!sidebarOpen);
@@ -64,22 +105,114 @@ export default function HomePage() {
     setSidebarOpen(false);
   };
 
-  const handleSaveAppointment = (formData) => {
+  const handleSaveAppointment = async (formData) => {
     const dateStr = formData.get('date');
     const timeStr = formData.get('time');
     const [year, month, day] = dateStr.split('-').map(Number);
     const [hours, minutes] = timeStr.split(':').map(Number);
 
+    const appointmentDate = new Date(year, month - 1, day, hours, minutes);
+
     const newAppointment = {
-      id: Math.max(...appointments.map(a => a.id)) + 1,
+      id: `temp-${Date.now()}`,
       patient: formData.get('patient'),
-      date: new Date(year, month - 1, day, hours, minutes),
+      date: appointmentDate,
       status: formData.get('status'),
-      notes: formData.get('notes') || ''
+      notes: formData.get('notes') || '',
+      googleEventId: null,
+      source: 'local'
     };
 
-    setAppointments([...appointments, newAppointment]);
+    // Adicionar ao estado local imediatamente
+    const updatedAppointments = [...appointments, newAppointment];
+    setAppointments(updatedAppointments);
     setShowNewAppointmentModal(false);
+
+    try {
+      // Enviar para o Google Calendar
+      const response = await fetch('/api/calendar/create-event', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          patient: newAppointment.patient,
+          date: appointmentDate.toISOString(),
+          notes: newAppointment.notes
+        }),
+      });
+
+      if (response.ok) {
+        const { eventId } = await response.json();
+        
+        // Atualizar o agendamento com o ID do Google
+        const finalAppointment = {
+          ...newAppointment,
+          id: eventId,
+          googleEventId: eventId,
+          source: 'google'
+        };
+        
+        const finalAppointments = updatedAppointments.map(apt => 
+          apt.id === newAppointment.id ? finalAppointment : apt
+        );
+        
+        setAppointments(finalAppointments);
+        localStorage.setItem('appointments', JSON.stringify(finalAppointments));
+        
+        console.log('✅ Evento criado no Google Calendar!');
+      } else {
+        // Se falhar, manter como local
+        localStorage.setItem('appointments', JSON.stringify(updatedAppointments));
+        console.error('❌ Erro ao criar no Google, mantido localmente');
+      }
+    } catch (error) {
+      // Se falhar, manter como local
+      localStorage.setItem('appointments', JSON.stringify(updatedAppointments));
+      console.error('❌ Erro na requisição, mantido localmente:', error);
+    }
+  };
+
+  const handleDeleteAppointment = async (appointmentId) => {
+    const appointment = appointments.find(a => a.id === appointmentId);
+    
+    if (!appointment) {
+      console.error('Agendamento não encontrado');
+      return;
+    }
+
+    // Remover do estado local imediatamente
+    const updatedAppointments = appointments.filter(a => a.id !== appointmentId);
+    setAppointments(updatedAppointments);
+    localStorage.setItem('appointments', JSON.stringify(updatedAppointments));
+
+    // Se for um evento do Google, deletar lá também
+    if (appointment.googleEventId) {
+      try {
+        // Marcar como deletado localmente
+        const deletedEvents = JSON.parse(localStorage.getItem('deletedGoogleEvents') || '[]');
+        deletedEvents.push(appointment.googleEventId);
+        localStorage.setItem('deletedGoogleEvents', JSON.stringify(deletedEvents));
+
+        const response = await fetch(`/api/calendar/delete-event?eventId=${appointment.googleEventId}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+          console.log('✅ Evento deletado do Google Calendar!');
+          // Remover da lista de deletados após confirmar exclusão
+          setTimeout(() => {
+            const currentDeleted = JSON.parse(localStorage.getItem('deletedGoogleEvents') || '[]');
+            const filtered = currentDeleted.filter(id => id !== appointment.googleEventId);
+            localStorage.setItem('deletedGoogleEvents', JSON.stringify(filtered));
+          }, 30000); // Limpar após 30 segundos
+        } else {
+          console.error('❌ Erro ao deletar do Google Calendar');
+        }
+      } catch (error) {
+        console.error('❌ Erro ao deletar do Google Calendar:', error);
+      }
+    }
   };
 
   // Calcular estatísticas
@@ -119,8 +252,62 @@ export default function HomePage() {
       <main className="main-layout">
         <Sidebar isOpen={sidebarOpen} onClose={handleCloseSidebar} />
         <article className="main-content">
+          {/* Banner de carregamento/sincronização */}
+          {(loading || syncing) && (
+            <div style={{
+              position: 'fixed',
+              top: '80px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              padding: '12px 24px',
+              borderRadius: '8px',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+              zIndex: 1000,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              fontSize: '14px',
+              fontWeight: '500'
+            }}>
+              <span style={{
+                display: 'inline-block',
+                width: '16px',
+                height: '16px',
+                border: '2px solid rgba(255,255,255,0.3)',
+                borderTop: '2px solid white',
+                borderRadius: '50%',
+                animation: 'spin 0.8s linear infinite'
+              }}></span>
+              {loading ? 'Carregando agendamentos...' : 'Sincronizando...'}
+              <style jsx>{`
+                @keyframes spin {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+                }
+              `}</style>
+            </div>
+          )}
+
           <header className="page-header">
             <h1 className="page-title">Agendamentos</h1>
+            <button 
+              onClick={syncWithGoogle}
+              disabled={syncing}
+              style={{
+                marginLeft: '1rem',
+                padding: '0.5rem 1rem',
+                fontSize: '0.9rem',
+                background: syncing ? '#e0e0e0' : '#f0f0f0',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+                cursor: syncing ? 'not-allowed' : 'pointer',
+                opacity: syncing ? 0.6 : 1
+              }}
+            >
+              {syncing ? '🔄 Sincronizando...' : '🔄 Sincronizar'}
+            </button>
           </header>
 
           <section className={styles.statsGrid}>
@@ -137,7 +324,11 @@ export default function HomePage() {
             Nova Consulta
           </button>
 
-          <Calendar appointments={appointments} setAppointments={setAppointments} />
+          <Calendar 
+            appointments={appointments} 
+            setAppointments={setAppointments}
+            onDeleteAppointment={handleDeleteAppointment}
+          />
         </article>
       </main>
 
@@ -155,21 +346,22 @@ export default function HomePage() {
             </button>
             <button 
               className="btn-primary"
-              onClick={() => {
-                const form = document.getElementById('appointmentForm');
-                if (form.checkValidity()) {
-                  handleSaveAppointment(new FormData(form));
-                } else {
-                  form.reportValidity();
-                }
-              }}
+              type="submit"
+              form="appointmentForm"
             >
               Salvar
             </button>
           </>
         }
       >
-        <form id="appointmentForm">
+        <form 
+          id="appointmentForm"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            handleSaveAppointment(formData);
+          }}
+        >
           <label>
             Paciente:
             <input type="text" name="patient" required />
