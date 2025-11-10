@@ -146,6 +146,67 @@ Para adicionar interatividade, precisamos dizer ao React para tratar aquele comp
 
 ![useClient](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-10-23%20at%2021.30.07.png?raw=true)
 
+
+### 2.7 Integração com Google Calendar API
+
+Para garantir que os agendamentos realizados no site sejam imediatamente refletidos no calendário pessoal da profissional (linkado a conta Google), implementamos a comunicação direta com a Google Calendar API.
+
+Essa funcionalidade utiliza as Rotas de API do Next.js (localizadas na pasta src/app/api), que funcionam como endpoints de backend dentro da própria aplicação.
+
+#### Estrutura e Endpoints
+Estrutura de Rotas de API: O Next.js utiliza a pasta api para definir rotas de backend. Cada pasta aninhada com um arquivo route.js se torna um endpoint RESTful.
+
+![endpoints](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-11-10%20at%2011.23.13.png?raw=true)
+
+Dentre esses endpoints criados, endpoint **create-event** é responsável pela funcionalidade principal, criar o evento na agenda google a partir do evento criado no nosso site.
+
+Endpoint: A URL de acesso é .../api/calendar/create-event.
+
+Este arquivo exporta uma função POST assíncrona que lida com a requisição de criação de eventos.
+
+![post](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-11-10%20at%2011.29.24.png?raw=true)
+
+Autenticação (OAuth 2.0): Para acessar o calendário da usuária, utilizamos o protocolo OAuth 2.0 do Google. As chaves de acesso sensíveis, como CLIENT_ID, CLIENT_SECRET e o REFRESH_TOKEN (que permite gerar novos tokens de acesso), são armazenadas de forma segura em um arquivo .env (variáveis de ambiente), garantindo que não sejam expostas no código-fonte.
+
+![Autenticação](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-11-10%20at%2011.26.18.png?raw=true)
+
+A função POST recebe os dados da nova consulta (paciente, data e notas) do frontend, inicializa um cliente OAuth (oauth2Client) e as credenciais (REFRESH_TOKEN) são definidas para autenticar a chamada.
+
+![funcaoPost](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-11-10%20at%2011.40.37.png?raw=true)
+
+Formato Google: Os dados do agendamento são formatados no padrão esperado pela API do Google Calendar, incluindo sumário (nome do paciente) e data/hora de início e fim (start/end), com o fuso horário correto (America/Sao_Paulo).
+
+![formatoGoogle](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-11-10%20at%2011.25.36.png?raw=true)
+
+Chamada à API: O método calendar.events.insert é invocado para inserir o evento no calendário principal (calendarId: 'primary').
+
+![insert](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-11-10%20at%2011.32.58.png?raw=true)
+
+#### 2.7.1 Chamada da API no Frontend
+
+A função handleSaveAppointment (localizada no page.js principal) é o ponto onde o agendamento é salvo. Ela é responsável por orquestrar a chamada ao servidor para sincronizar a consulta com o Google Calendar.
+
+O fluxo de dados segue os seguintes passos:
+
+1. Criação e Exibição Local:
+
+- Os dados do formulário (formData) são transformados em um objeto newAppointment. Este novo agendamento é adicionado imediatamente ao estado local (setAppointments) e ao localStorage para ser exibido na tela sem atrasos.
+
+![agendamentoLocal](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-11-10%20at%2011.55.27.png?raw=true)
+
+2. Requisição Assíncrona ao Servidor:
+
+- Em seguida, o código inicia uma chamada assíncrona (await fetch) para o endpoint que criamos no backend: /api/calendar/create-event. Os dados essenciais da consulta (paciente, data e notas) são enviados no corpo da requisição (POST).
+
+![enviogoogle](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-11-10%20at%2011.56.50.png?raw=true)
+
+3. Atualização Final com ID do Google:
+
+- Sucesso: Se a rota de API retornar uma resposta positiva (response.ok), ela inclui o eventId gerado pelo Google Calendar. O agendamento correspondente no estado local e no localStorage é atualizado com esse ID definitivo. Isso garante que futuras operações (edição ou exclusão) possam interagir corretamente com o Google Calendar.
+
+- Falha: Se a requisição falhar (por um erro de rede ou na API do Google), o agendamento permanece no estado local com seu ID temporário. Um erro é registrado no console, e o sistema mantém a consulta salva localmente.
+![falhaEnvio](https://github.com/erikhsu08/webmobile/blob/main/assets/Screenshot%202025-11-10%20at%2011.57.13.png?raw=true)
+
 ### 3. Conclusão
 
 Ao longo do desenvolvimento deste projeto, transformamos uma necessidade real — a organização da agenda de um consultório dermatológico — em uma solução funcional. A integração do React e Next.js para a estrutura, CSS3 para a estética e JavaScript (com hooks) para a inteligência dinâmica, nos permitiu criar um sistema de agendamento simples, porém completo e eficiente.
