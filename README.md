@@ -149,7 +149,7 @@ Para adicionar interatividade, precisamos dizer ao React para tratar aquele comp
 
 ### 2.7 Integração com Google Calendar API
 
-Para garantir que os agendamentos realizados no site sejam imediatamente refletidos no calendário pessoal da profissional (linkado a conta Google), implementamos a comunicação direta com a Google Calendar API.
+Para garantir que os agendamentos realizados no site sejam imediatamente refletidos no calendário pessoal da profissional (linkado à conta Google), implementamos a comunicação direta com a Google Calendar API.
 
 Essa funcionalidade utiliza as Rotas de API do Next.js (localizadas na pasta src/app/api), que funcionam como endpoints de backend dentro da própria aplicação.
 
