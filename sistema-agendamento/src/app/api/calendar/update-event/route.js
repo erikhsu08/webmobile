@@ -5,10 +5,10 @@ export async function PUT(request) {
   try {
     const { eventId, patient, date, notes } = await request.json();
 
-    console.log('🔄 Tentando atualizar evento:', eventId);
+    console.log('Tentando atualizar evento:', eventId);
 
     if (!eventId) {
-      console.error('❌ eventId não fornecido');
+      console.error('eventId não fornecido');
       return NextResponse.json({ error: 'eventId não fornecido' }, { status: 400 });
     }
 
@@ -25,13 +25,13 @@ export async function PUT(request) {
     const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
 
     // Buscar o evento existente primeiro
-    console.log('📅 Buscando evento existente...');
+    console.log('Buscando evento existente...');
     const existingEvent = await calendar.events.get({
       calendarId: 'primary',
       eventId: eventId,
     });
 
-    console.log('✅ Evento encontrado, atualizando...');
+    console.log('Evento encontrado, atualizando...');
 
     // Atualizar o evento com os novos dados
     const updatedEvent = {
@@ -53,7 +53,7 @@ export async function PUT(request) {
       resource: updatedEvent,
     });
 
-    console.log('✅ Evento atualizado com sucesso no Google Calendar!');
+    console.log('Evento atualizado com sucesso no Google Calendar!');
 
     return NextResponse.json({ 
       success: true, 
@@ -61,10 +61,10 @@ export async function PUT(request) {
       updated: response.data.updated
     });
   } catch (error) {
-    console.error('❌ Erro ao atualizar evento:', error.message);
+    console.error('Erro ao atualizar evento:', error.message);
     
     if (error.response?.data) {
-      console.error('❌ Resposta da API:', error.response.data);
+      console.error('Resposta da API:', error.response.data);
     }
     
     return NextResponse.json({ 
