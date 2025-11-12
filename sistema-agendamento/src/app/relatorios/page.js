@@ -8,7 +8,6 @@ import styles from './relatorios.module.css';
 export default function RelatoriosPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Dados de exemplo (você pode pegar do contexto global depois)
   const appointments = [
     {
       id: 1,
