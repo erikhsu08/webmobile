@@ -14,8 +14,6 @@ export async function GET(request) {
   try {
     const { tokens } = await oauth2Client.getToken(code);
     
-    // Armazene os tokens de forma segura
-    // Por enquanto, vamos retornar para você guardar
     return NextResponse.json({ 
       success: true, 
       tokens,
