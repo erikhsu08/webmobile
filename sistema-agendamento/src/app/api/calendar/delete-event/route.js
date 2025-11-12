@@ -16,11 +16,9 @@ export async function DELETE(request) {
         // Body vazio ou inválido
       }
     }
-    
-    console.log('🔍 Tentando deletar evento com ID:', eventId);
 
     if (!eventId) {
-      console.error('❌ eventId não fornecido');
+      console.error('eventId não fornecido');
       return NextResponse.json({ error: 'eventId não fornecido' }, { status: 400 });
     }
 
@@ -36,22 +34,22 @@ export async function DELETE(request) {
 
     const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
 
-    console.log('📅 Chamando Google Calendar API para deletar evento...');
+    console.log('Chamando Google Calendar API para deletar evento...');
 
     await calendar.events.delete({
       calendarId: 'primary',
       eventId: eventId,
     });
 
-    console.log('✅ Evento deletado com sucesso no Google Calendar!');
+    console.log('Evento deletado com sucesso no Google Calendar!');
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('❌ Erro ao deletar evento:', error.message);
+    console.error('Erro ao deletar evento:', error.message);
     
     // Log mais detalhado do erro
     if (error.response?.data) {
-      console.error('❌ Resposta da API:', error.response.data);
+      console.error('Resposta da API:', error.response.data);
     }
     
     return NextResponse.json({ 
